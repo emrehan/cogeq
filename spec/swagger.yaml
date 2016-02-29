@@ -1,0 +1,273 @@
+# this is our API definition
+swagger: '2.0'
+info:
+  title: COGEQ API
+  description: Virtual travel assistant.
+  version: 0.0.1-SNAPSHOT
+
+# the domain of the service
+host: localhost:9000
+
+# array of all schemes that your API supports
+schemes:
+  - http
+
+produces:
+  - application/json
+
+paths:
+  /cities:
+    get:
+      summary: Get the list of cities
+      description: |
+        Returns all available cities to be used in recommended cities or a dropdown menu.
+        If the search parameter is provided it's used to filter down the results.
+        The latidude and longitude parameters could be used to show nearby cities.
+      parameters:
+        - name: size
+          in: query
+          description: The number of cities requested.
+          required: false
+          type: integer
+          format: int64
+        - name: search
+          in: query
+          description: Search parameter that's typed into a search field to filter down cities.
+          required: false
+          type: string
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: false
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: false
+          type: number
+          format: double
+      responses:
+        200:
+          description: An array of cities
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /travels:
+    post:
+      summary: Create a new travel
+      description: |
+        Create a new travel with given parameters
+      responses:
+        200:
+          description: A travel object
+          schema:
+            $ref: '#/definitions/Travel'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /travels/{travel_id}:
+    parameters:
+      - name: travel_id
+        in: path
+        description: |
+        required: true
+        type: string
+    get: 
+      summary: Get a travel by its id.
+      description: |
+        Returns a planned travel.
+      responses:
+        200:
+          description: A travel object
+          schema:
+            $ref: '#/definitions/Travel'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Update a travel.
+      description: |
+        Update a travel parameters such as its datetimes or activities.
+      responses:
+        200:
+          description: A travel object
+          schema:
+            $ref: '#/definitions/Travel'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /travels/{travel_id}/{activity_id}:
+    parameters:
+      - name: travel_id
+        in: path
+        description: |
+        required: true
+        type: string
+      - name: activity_id
+        in: path
+        description: |
+        required: true
+        type: string
+    delete:
+      summary: Delete a place from the travel plan.
+      description: |
+        Update a travel parameters such as its datetimes or activities.
+      responses:
+        200:
+          description: A travel object
+          schema:
+            $ref: '#/definitions/Travel'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me:
+    get:
+      summary: User Profile
+      description: The User Profile endpoint returns information about the Uber user that has authorized with the application.
+      responses:
+        200:
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+definitions:
+  City:
+    type: object
+    properties:
+      name: 
+        type: string
+        description: The city's name.
+      country:
+        type: string
+        description: The country that the city belongs to.
+      picture_url:
+        type: string
+        description: The image url of the city.
+  Place:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      picture_url:
+        type: string
+      foursquare_url:
+        type: string
+      tripadvisor_url:
+        type: string
+      google_url:
+        type: string
+      googlemaps_url:
+        type: string
+  Directions:
+    type: object
+    required:
+    properties:
+      directions_url:
+        type: string
+      transportation:
+        type: string
+  Activity:
+    type: object
+    required:
+      - activity_id
+      - name
+      - from
+      - to
+    properties:
+      activity_id:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+        description: |
+          The type of the activity.
+          One of the following list
+          'visit', 'directions'
+      place:
+        $ref: '#/definitions/Place'
+      directions:
+        $ref: '#/definitions/Directions'
+      from:
+        description: |
+          The beginning time of the activity in RFC3339 format.
+        type: string
+        format: date-time
+      to:
+        description: |
+          The end time of the activity in RFC3339 format.
+        type: string
+        format: date-time
+  Travel:
+    type: object
+    required:
+      - travel_id
+      - from
+      - to
+    properties:
+      city:
+        $ref: '#/definitions/City'
+      travel_id:
+        description: Unique id of the travel
+        type: string
+      from:
+        description: |
+          The beginning time of the travel in RFC3339 format.
+        type: string
+        format: date-time
+      to:
+        description: |
+          The end time of the travel in RFC3339 format.
+        type: string
+        format: date-time
+      activities:
+        type: array
+        items:
+          $ref: '#/definitions/Activity'
+  Profile:
+    type: object
+    required:
+      - first_name
+      - last_name
+      - email
+    properties:
+      first_name:
+        type: string
+        description: First name of the user.
+      last_name:
+        type: string
+        description: Last name of the user.
+      email:
+        type: string
+        description: Email address of the user
+      picture_url:
+        type: string
+        description: Image URL of the user.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
