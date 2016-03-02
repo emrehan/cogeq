@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AndroidPlay</string>
+    <string name="app_name">Cogeq</string>
+    <string name="main_no_items">No preference to display</string>
 </resources>
