@@ -34,7 +34,7 @@ public class MainActivity extends ListActivity {
 
         m_adapter = new PreferenceAdapter(this, R.layout.row, m_preferences);
         setListAdapter(m_adapter);
-
+        //Ben Can
     }
 
     public void preferenceOnClick(View view){
