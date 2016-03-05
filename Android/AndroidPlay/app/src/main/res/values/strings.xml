@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cogeq</string>
     <string name="main_no_items">No preference to display</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
