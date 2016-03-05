@@ -6,6 +6,7 @@ package com.saygindogu.saygin.androidplay;
 public class TravelPreference {
     private String name;
     private int drawableId;
+    private boolean isSelected;
 
     public TravelPreference( String name, int id){
         this.name = name;
@@ -20,5 +21,13 @@ public class TravelPreference {
     }
     public int getImageId(){
         return drawableId;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }

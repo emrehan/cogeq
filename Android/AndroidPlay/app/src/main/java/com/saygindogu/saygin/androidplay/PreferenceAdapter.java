@@ -27,14 +27,14 @@ public class PreferenceAdapter extends ArrayAdapter<TravelPreference> {
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.row, null);
         }
-        TravelPreference o = items.get(position);
-        if (o != null) {
+        TravelPreference travelPreference = items.get(position);
+        if (travelPreference != null) {
             TextView tt = (TextView) v.findViewById(R.id.toptext);
             if (tt != null) {
-                tt.setText(o.getName());
+                tt.setText(travelPreference.getName());
             }
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
-            iv.setImageResource( o.getImageId());
+            iv.setImageResource( travelPreference.getImageId());
         }
         return v;
     }

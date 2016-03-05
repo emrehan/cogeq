@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
 public class PreferenceSelectActivity extends ListActivity {
 
@@ -34,6 +35,17 @@ public class PreferenceSelectActivity extends ListActivity {
     }
 
     public void preferenceOnClick(View view){
-        view.findViewById(R.id.icon).setVisibility(View.VISIBLE);
+        ListView lv = getListView();
+        int pos = lv.getPositionForView( view);
+
+        boolean isSelected = m_preferences.get(pos).isSelected();
+        if( isSelected){
+            view.findViewById(R.id.icon).setVisibility(View.INVISIBLE);
+            m_preferences.get(pos).setIsSelected(false);
+        }
+        else {
+            view.findViewById(R.id.icon).setVisibility(View.VISIBLE);
+            m_preferences.get(pos).setIsSelected( true);
+        }
     }
 }
