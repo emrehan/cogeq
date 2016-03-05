@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:id="@+id/imageView"
+        android:id="@+id/cogeqLogo"
         android:background="@drawable/cogeq2"
         android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
@@ -28,7 +28,7 @@
         android:id="@+id/textView"
         android:textColor="#ff3600"
         android:textSize="50dp"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/cogeqLogo"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_marginBottom="86dp"
         android:background="@drawable/foursquare"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_alignStart="@+id/cogeqLogo" />
     />
 
 </RelativeLayout>
