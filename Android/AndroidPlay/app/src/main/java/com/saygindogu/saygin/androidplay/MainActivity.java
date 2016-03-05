@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void mainButtonsOnClick(View view){
         Intent intent = null;
+        System.out.println( "Button Pressed.");
         if( view.getId() == R.id.loginButton){
            intent = new Intent(this, LoginActivity.class);
         }
