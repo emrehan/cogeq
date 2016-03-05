@@ -8,7 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.cangiracoglu.cogeq1.Login2Activity"
     android:background="@drawable/city">
 
@@ -19,7 +18,7 @@
         android:background="@drawable/cogeq2"
         android:layout_marginTop="35dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
