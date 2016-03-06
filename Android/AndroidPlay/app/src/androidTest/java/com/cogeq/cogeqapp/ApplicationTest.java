@@ -1,4 +1,4 @@
-package com.saygindogu.saygin.androidplay;
+package com.cogeq.cogeqapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
