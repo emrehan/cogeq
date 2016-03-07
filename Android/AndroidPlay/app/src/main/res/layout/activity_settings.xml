@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -25,17 +27,18 @@
             android:layout_alignParentEnd="true" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Travel Intensity:"
             android:id="@+id/travelIntensity"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="#88e79e" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Wheather Condition:"
@@ -43,7 +46,8 @@
             android:layout_marginTop="34dp"
             android:layout_below="@+id/sleepy"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="#97e8fa" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -82,13 +86,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton"
-            android:layout_marginTop="19dp"
             android:checked="false"
-            android:layout_below="@+id/wheaterCondition"
-            android:layout_alignRight="@+id/exhausting"
-            android:layout_alignEnd="@+id/exhausting"
-            android:layout_marginRight="29dp"
-            android:layout_marginEnd="29dp" />
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/sunny"
+            android:layout_alignStart="@+id/sunny" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -96,18 +97,16 @@
             android:id="@+id/radioButton2"
             android:checked="false"
             android:layout_alignTop="@+id/radioButton"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignRight="@+id/rainy"
+            android:layout_alignEnd="@+id/rainy" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton3"
             android:checked="false"
-            android:layout_above="@+id/snowy"
-            android:layout_alignLeft="@+id/peaceful"
-            android:layout_alignStart="@+id/peaceful"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp" />
+            android:layout_alignTop="@+id/radioButton2"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:layout_width="50dp"
@@ -115,17 +114,17 @@
             android:id="@+id/sunny"
             android:background="@drawable/sunny2"
             android:layout_below="@+id/radioButton"
-            android:layout_alignRight="@+id/radioButton"
-            android:layout_alignEnd="@+id/radioButton" />
+            android:layout_alignRight="@+id/sleepy"
+            android:layout_alignEnd="@+id/sleepy" />
 
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/rainy"
             android:background="@drawable/rainy"
-            android:layout_alignTop="@+id/sunny"
-            android:layout_alignRight="@+id/wheaterCondition"
-            android:layout_alignEnd="@+id/wheaterCondition" />
+            android:layout_above="@+id/textView3"
+            android:layout_alignLeft="@+id/imageView4"
+            android:layout_alignStart="@+id/imageView4" />
 
 
         <ImageButton
@@ -133,9 +132,8 @@
             android:layout_height="50dp"
             android:id="@+id/snowy"
             android:background="@drawable/snowy"
-            android:layout_alignTop="@+id/rainy"
-            android:layout_alignLeft="@+id/radioButton3"
-            android:layout_alignStart="@+id/radioButton3" />
+            android:layout_above="@+id/textView3"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:layout_width="70dp"
@@ -143,43 +141,73 @@
             android:id="@+id/sleepy"
             android:background="@drawable/sleepy"
             android:layout_below="@+id/exhausting"
-            android:layout_alignRight="@+id/exhausting"
-            android:layout_alignEnd="@+id/exhausting" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/imageView2"
+            android:id="@+id/mild"
             android:background="@drawable/mild"
             android:layout_alignBottom="@+id/sleepy"
-            android:layout_toRightOf="@+id/travelIntensity"
-            android:layout_toEndOf="@+id/travelIntensity" />
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/imageView3"
-            android:layout_alignBottom="@+id/imageView2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignLeft="@+id/snowy"
+            android:layout_alignStart="@+id/snowy" />
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/imageView4"
             android:background="@drawable/peaceful"
-            android:layout_alignTop="@+id/imageView3"
-            android:layout_alignLeft="@+id/radioButton3"
-            android:layout_alignStart="@+id/radioButton3" />
+            android:layout_alignTop="@+id/mild"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Today You Want Travel Between :"
             android:id="@+id/textView3"
-            android:layout_marginTop="30dp"
             android:layout_below="@+id/sunny"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="28dp"
+            android:background="#ffa047" />
+
+        <SeekBar
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_above="@+id/seekBar2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="37dp" />
+
+        <SeekBar
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Start: 00.00"
+            android:id="@+id/startTime"
+            android:layout_above="@+id/seekBar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="End: 00.00"
+            android:id="@+id/endTime"
+            android:layout_above="@+id/seekBar2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
