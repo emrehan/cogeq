@@ -19,19 +19,31 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        >
+        android:background="@drawable/typewriter2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sign Up"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="We don't need your name but you can enter though"
             android:ems="10"
             android:id="@+id/signUp_nameEditText"
             android:layout_below="@+id/nameTextView"
-
+            android:bottomRightRadius="10dp"
+            android:bottomLeftRadius="10dp"
+            android:topLeftRadius="10dp"
+            android:topRightRadius="10dp"
             android:layout_marginBottom="20dp"
-            android:autoText="false" />
+            android:autoText="false"
+            android:background="#99ecdfa7" />
 
         <EditText
             android:layout_width="match_parent"
@@ -41,21 +53,24 @@
             android:id="@+id/signUp_surnameEditText"
             android:layout_below="@+id/nameTextView"
 
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:background="#99ecdfa7" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signUp_usernameEditText"
             android:layout_marginBottom="20dp"
-            android:text="Tell us how dou you want to be called, your nickname..." />
+            android:text="Tell us how dou you want to be called, your nickname..."
+            android:background="#99ecdfa7" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signUp_emailEditText"
             android:layout_marginBottom="20dp"
-            android:text="We want to be in touch but just with an email" />
+            android:text="We want to be in touch, but just with an email"
+            android:background="#99ecdfa7" />
 
         <EditText
             android:layout_width="match_parent"
@@ -64,8 +79,11 @@
             android:ems="10"
             android:layout_marginBottom="10dp"
             android:id="@+id/signUp_passwordEditText"
-            android:text="Your very secret password" />/>
+            android:text="Your very secret password"
+            android:background="#99ecdfa7" /><![CDATA[/>
 
+
+        ]]>
 
         <Button
             android:layout_width="wrap_content"

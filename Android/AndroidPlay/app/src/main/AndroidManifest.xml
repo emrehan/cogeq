@@ -38,6 +38,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cogeq.cogeqapp.LoginActivity" />
         </activity>
+        <activity android:name=".CitySearch" />
+        <activity android:name=".DatePicker"></activity>
     </application>
 
 </manifest>

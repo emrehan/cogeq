@@ -3,4 +3,5 @@
     <string name="main_no_items">No preference to display</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_date_picker">DatePicker</string>
 </resources>
