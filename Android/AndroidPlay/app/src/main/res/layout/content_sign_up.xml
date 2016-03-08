@@ -18,8 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:orientation="vertical"
-        android:background="@drawable/typewriter2">
+        android:orientation="vertical">
+
 
         <TextView
             android:layout_width="wrap_content"

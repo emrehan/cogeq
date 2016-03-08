@@ -24,26 +24,53 @@
             android:layout_height="wrap_content"
             android:text="PreferenceSelect"
             android:id="@+id/preferenceButton"
+            android:onClick="mainButtonsOnClick"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="51dp"
-            android:onClick="mainButtonsOnClick" />
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings"
             android:id="@+id/settingsButton"
+            android:onClick="mainButtonsOnClick"
             android:layout_below="@+id/preferenceButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
-            android:onClick="mainButtonsOnClick" />
+            android:layout_alignLeft="@+id/loginButton"
+            android:layout_alignStart="@+id/loginButton" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
             android:id="@+id/loginButton"
+            android:onClick="mainButtonsOnClick"
+            android:layout_below="@+id/settingsButton"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DatePicker"
+            android:id="@+id/datePickerButton"
+            android:onClick="mainButtonsOnClick"
+            android:layout_below="@+id/loginButton"
+            android:layout_alignRight="@+id/citySearchButton"
+            android:layout_alignEnd="@+id/citySearchButton" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="citySearch"
+            android:id="@+id/citySearchButton"
+            android:layout_below="@+id/datePickerButton"
+            android:layout_centerHorizontal="true"
+            android:onClick="mainButtonsOnClick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="settingsDrawer"
+            android:id="@+id/settingsDrawerButton"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:onClick="mainButtonsOnClick" />

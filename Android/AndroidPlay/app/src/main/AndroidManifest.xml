@@ -39,7 +39,11 @@
                 android:value="com.cogeq.cogeqapp.LoginActivity" />
         </activity>
         <activity android:name=".CitySearch" />
-        <activity android:name=".DatePicker"></activity>
+        <activity android:name=".DatePicker" />
+        <activity
+            android:name=".SettingsDrawerActivity"
+            android:label="@string/title_activity_settings_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
