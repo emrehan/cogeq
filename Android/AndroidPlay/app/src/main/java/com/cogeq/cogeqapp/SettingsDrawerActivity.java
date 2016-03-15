@@ -1,5 +1,6 @@
 package com.cogeq.cogeqapp;
 
+import android.app.TabActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,8 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TabHost;
 
-public class SettingsDrawerActivity extends AppCompatActivity
+public class SettingsDrawerActivity extends TabActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -21,7 +25,7 @@ public class SettingsDrawerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,7 +76,7 @@ public class SettingsDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_changeCity) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_changeTime) {
 
         } else if (id == R.id.nav_logout) {
@@ -85,4 +89,6 @@ public class SettingsDrawerActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
