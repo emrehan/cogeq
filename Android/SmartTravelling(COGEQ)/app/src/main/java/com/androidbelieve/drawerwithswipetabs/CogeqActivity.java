@@ -4,7 +4,8 @@ import android.content.ContentQueryMap;
 
 import com.google.android.gms.maps.model.LatLng;
 
-/**
+
+/**can can
  * Created by saygin on 3/12/2016.
  */
 public class CogeqActivity {
