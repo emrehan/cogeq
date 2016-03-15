@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Tell Us What You Love"
+          android:id="@+id/nav_love"
+          android:icon="@drawable/love"/>
+
+    <item android:title="Pick New date"
+          android:id="@+id/nav_date"
+          android:icon="@drawable/date"/>
+
+    <item android:title="Search for New City"
+          android:id="@+id/nav_city"
+          android:icon="@drawable/city"/>
+
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:title="Settings"
+                android:icon="@drawable/settings"
+                android:id="@+id/nav_settings"/>
+            <item
+                android:title="About Us"
+                android:icon="@drawable/about"
+                android:id="@+id/nav_about"/>
+            />
+        </menu>
+    </item>
+
+        <group android:id="@+id/group_settings_id">
+
+            <item android:title="Return Main Page"
+                  android:icon="@drawable/sent"
+                  android:id="@+id/nav_main"/>
+        </group>
+
+
+    </menu>
