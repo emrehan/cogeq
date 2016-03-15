@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 
 /**can can
- * grc grc
+ * saygin saygin
  * Created by saygin on 3/12/2016.
  */
 public class CogeqActivity {
