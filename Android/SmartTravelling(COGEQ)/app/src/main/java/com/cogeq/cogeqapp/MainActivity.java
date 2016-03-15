@@ -1,8 +1,7 @@
-package com.androidbelieve.drawerwithswipetabs;
+package com.cogeq.cogeqapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+
 
 public class MainActivity extends AppCompatActivity{
     public static FragmentManager fragmentManager;

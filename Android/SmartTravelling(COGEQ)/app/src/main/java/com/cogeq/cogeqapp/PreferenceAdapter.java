@@ -1,4 +1,4 @@
-package com.androidbelieve.drawerwithswipetabs;
+package com.cogeq.cogeqapp;
 
 /**
  * Created by cangiracoglu on 11/03/16.
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import java.util.List;
 
