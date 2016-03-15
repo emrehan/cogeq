@@ -1,4 +1,4 @@
-package com.androidbelieve.drawerwithswipetabs;
+package com.cogeq.cogeqapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

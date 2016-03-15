@@ -1,4 +1,4 @@
-package com.androidbelieve.drawerwithswipetabs;
+package com.cogeq.cogeqapp;
 
 /**
  * Created by cangiracoglu on 11/03/16.

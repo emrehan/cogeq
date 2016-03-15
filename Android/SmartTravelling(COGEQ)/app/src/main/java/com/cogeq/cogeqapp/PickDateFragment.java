@@ -1,4 +1,4 @@
-package com.androidbelieve.drawerwithswipetabs;
+package com.cogeq.cogeqapp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class SearchCityFragment extends Fragment {
+public class PickDateFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.city_layout,null);
+        return inflater.inflate(R.layout.date_layout,null);
     }
 }

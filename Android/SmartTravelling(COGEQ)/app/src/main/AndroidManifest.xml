@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.androidbelieve.drawerwithswipetabs">
+    package="com.cogeq.cogeqapp">
 
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,7 +31,7 @@
             android:value="AIzaSyAt6uMvr9dzErFKMMfR0kEwUYw2lrlhaB0"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.cogeq.cogeqapp.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LauncherActivity"
+            android:name="com.cogeq.cogeqapp.LauncherActivity"
             android:label="@string/title_activity_launcher"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -50,11 +50,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.cogeq.cogeqapp.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".CogeqActivityViewActivity"
+            android:name="com.cogeq.cogeqapp.CogeqActivityViewActivity"
             android:label="@string/title_activity_cogeq_activity_view"
             android:theme="@style/AppTheme"></activity>
     </application>
