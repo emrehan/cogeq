@@ -37,13 +37,13 @@ paths:
           type: string
         - name: latitude
           in: query
-          description: Latitude component of location.
+          description: Latitude component of current location.
           required: false
           type: number
           format: double
         - name: longitude
           in: query
-          description: Longitude component of location.
+          description: Longitude component of current location.
           required: false
           type: number
           format: double
@@ -63,6 +63,29 @@ paths:
       summary: Create a new travel
       description: |
         Create a new travel with given parameters
+      parameters:
+        - name: city
+          in: query
+          required: true
+          type: string
+        - name: country
+          in: query
+          required: true
+          type: string
+        - name: from
+          description: |
+            The beginning time of the activity in RFC3339 format.
+          in: query
+          required: true
+          type: string
+          format: date-time
+        - name: to
+          description: |
+            The end time of the activity in RFC3339 format.
+          in: query
+          required: true
+          type: string
+          format: date-time
       responses:
         200:
           description: A travel object
@@ -157,6 +180,12 @@ definitions:
       picture_url:
         type: string
         description: The image url of the city.
+      latitude:
+        type: number
+        format: double
+      longitude:
+        type: number
+        format: double
   Place:
     type: object
     required:
