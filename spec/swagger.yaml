@@ -24,13 +24,7 @@ paths:
         If the search parameter is provided it's used to filter down the results.
         The latidude and longitude parameters could be used to show nearby cities.
       parameters:
-        - name: size
-          in: query
-          description: The number of cities requested.
-          required: false
-          type: integer
-          format: int64
-        - name: search
+        - name: query
           in: query
           description: Search parameter that's typed into a search field to filter down cities.
           required: false
