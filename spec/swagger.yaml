@@ -60,10 +60,7 @@ paths:
       parameters:
         - name: city
           in: query
-          required: true
-          type: string
-        - name: country
-          in: query
+          description: The description of the city as in Google Places API.
           required: true
           type: string
         - name: from
