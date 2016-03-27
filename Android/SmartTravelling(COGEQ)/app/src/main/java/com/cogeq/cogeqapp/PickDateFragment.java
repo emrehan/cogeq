@@ -26,10 +26,7 @@ import java.util.Calendar;
 public class PickDateFragment extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-<<<<<<< Updated upstream
-        //TODO: send time to server.
-        return inflater.inflate(R.layout.date_layout,null);
-=======
+
         View view = inflater.inflate(R.layout.date_layout, null);
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
         final EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
@@ -57,7 +54,7 @@ public class PickDateFragment extends Fragment{
         });
 
         return view;
->>>>>>> Stashed changes
+
     }
 }
 
