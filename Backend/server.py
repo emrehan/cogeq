@@ -24,6 +24,21 @@ def search_cities():
         default_cities = ['Istanbul, Turkey', 'London, United Kingdom', 'Izmir, Turkey', 'Singapore, Singapore', 'NYC, United States']
         return json.dumps( {'cities': default_cities}, ensure_ascii=False)
         
+@app.route("/travels", methods=['GET'])
+def create_travel():
+	try:
+		city = request.args.get('city')
+		ffrom = datetime.strptime(request.args.get('from'), '%Y-%m-%dT%H:%M:%S')
+		to = datetime.strptime(request.args.get('to'), '%Y-%m-%dT%H:%M:%S')
+		if (not city or not ffrom or not to):
+			return jsonify( {'Unexpected Error': 'city, from and to must be provided.'} )
+		else:
+			travel_id = uuid.uuid1()
+			activities = []
+			return jsonify( {'travel_id': travel_id, 'from': ffrom, 'to': to, 'activities': activities })
+	except:
+		return jsonify({'Unexpected Error': 'Unexpected Error occured'})
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
