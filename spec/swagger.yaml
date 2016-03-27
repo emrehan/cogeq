@@ -49,11 +49,11 @@ paths:
           format: double
       responses:
         200:
-          description: An array of cities
+          description: An array of city descriptions
           schema:
             type: array
             items:
-              $ref: '#/definitions/City'
+              type: string
         default:
           description: Unexpected error
           schema:
@@ -171,12 +171,9 @@ definitions:
   City:
     type: object
     properties:
-      name: 
+      description: 
         type: string
-        description: The city's name.
-      country:
-        type: string
-        description: The country that the city belongs to.
+        description: The city's name and country seperated by a comma.
       picture_url:
         type: string
         description: The image url of the city.
