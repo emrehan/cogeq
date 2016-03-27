@@ -17,12 +17,12 @@ def search_cities():
         r = requests.get('https://maps.googleapis.com/maps/api/place/autocomplete/json?types=(cities)&key=' + config['keys']['google_places'] + '&input=' + query )        
         if (r.status_code == 200):     
             cities = list( map( lambda x: x['description'], r.json()['predictions'] ) )
-            return jsonify( {'cities': cities} )
+            return json.dumps( {'cities': cities}, ensure_ascii=False )
         else:
-            return jsonify( {'Error': 'Error while getting Google Place API response'} )
+            return json.dumps( {'Error': 'Error while getting Google Place API response'}, ensure_ascii=False )
     else:
         default_cities = ['Istanbul, Turkey', 'London, United Kingdom', 'Izmir, Turkey', 'Singapore, Singapore', 'NYC, United States']
-        return jsonify( {'cities': default_cities} )
+        return json.dumps( {'cities': default_cities}, ensure_ascii=False)
         
 if __name__ == "__main__":
     app.debug = True
