@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 /**
@@ -20,6 +22,51 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.settings_layout, container, false);
+        View view = inflater.inflate(R.layout.settings_layout, container, false);
+
+        SeekBar seekBarStart = (SeekBar) view.findViewById(R.id.seekBarStart);
+        SeekBar seekBarFinish = (SeekBar) view.findViewById(R.id.seekBarFinish);
+        final TextView startTime = (TextView) view.findViewById( R.id.startTime);
+        final TextView endTime = (TextView) view.findViewById( R.id.endTime);
+
+        seekBarStart.setMax(24);
+        seekBarFinish.setProgress(24);
+        seekBarFinish.setMax(24);
+
+
+        seekBarStart.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                startTime.setText("Start : " + progress);
+            }
+        });
+
+        seekBarFinish.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                endTime.setText("End : " + progress);
+            }
+        });
+
+
+        return view;
     }
 }

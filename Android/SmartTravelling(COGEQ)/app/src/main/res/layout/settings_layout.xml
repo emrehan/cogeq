@@ -113,7 +113,7 @@
         <SeekBar
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
+            android:id="@+id/seekBarStart"
             android:layout_below="@+id/startTime"
             android:layout_alignRight="@+id/imageView4"
             android:layout_alignEnd="@+id/imageView4"
@@ -122,8 +122,8 @@
         <SeekBar
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seekBar2"
-            android:layout_below="@+id/seekBar"
+            android:id="@+id/seekBarFinish"
+            android:layout_below="@+id/seekBarStart"
             android:layout_alignRight="@+id/scrollView"
             android:layout_alignEnd="@+id/scrollView"
             android:layout_marginTop="26dp" />
