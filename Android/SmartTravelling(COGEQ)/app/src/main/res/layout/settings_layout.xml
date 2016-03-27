@@ -53,7 +53,8 @@
             android:id="@+id/sunny"
             android:background="@drawable/sunny2"
             android:layout_below="@+id/wheaterCondition"
-            android:layout_alignParentStart="true" />
+            android:layout_alignLeft="@+id/sleepy"
+            android:layout_alignStart="@+id/sleepy" />
 
         <ImageButton
             android:layout_width="50dp"
@@ -77,9 +78,9 @@
             android:layout_height="70dp"
             android:id="@+id/sleepy"
             android:background="@drawable/sleepy"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/travelIntensity" />
+            android:layout_below="@+id/travelIntensity"
+            android:layout_alignRight="@+id/startTime"
+            android:layout_alignEnd="@+id/startTime" />
 
         <ImageView
             android:layout_width="60dp"
@@ -147,6 +148,85 @@
             android:layout_below="@+id/scrollView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignTop="@+id/mild"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mood1"
+                android:checked="false"
+                android:layout_alignTop="@+id/mild"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginRight="90dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mood2"
+                android:checked="false"
+                android:layout_alignTop="@+id/mild"
+                android:layout_toLeftOf="@+id/mild"
+                android:layout_toStartOf="@+id/mild"
+                android:layout_marginRight="105dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mood3"
+                android:checked="false"
+                android:layout_alignTop="@+id/imageView4"
+                android:layout_toLeftOf="@+id/imageView4"
+                android:layout_toStartOf="@+id/imageView4" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroup2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignTop="@+id/sunny"
+            android:layout_alignRight="@+id/rainy"
+            android:layout_alignEnd="@+id/rainy">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weather1"
+                android:checked="false"
+                android:layout_alignTop="@+id/sunny"
+                android:layout_toLeftOf="@+id/sunny"
+                android:layout_toStartOf="@+id/sunny"
+                android:layout_marginRight="90dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weather2"
+                android:checked="false"
+                android:layout_below="@+id/wheaterCondition"
+                android:layout_toLeftOf="@+id/snowy"
+                android:layout_toStartOf="@+id/snowy"
+                android:layout_marginRight="105dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weather3"
+                android:checked="false"
+                android:layout_alignTop="@+id/rainy"
+                android:layout_alignLeft="@+id/mood3"
+                android:layout_alignStart="@+id/mood3" />
+        </RadioGroup>
 
     </RelativeLayout>
 </RelativeLayout>

@@ -5,8 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.CompoundButton;
 
 
 /**
@@ -28,6 +31,30 @@ public class SettingsFragment extends Fragment {
         SeekBar seekBarFinish = (SeekBar) view.findViewById(R.id.seekBarFinish);
         final TextView startTime = (TextView) view.findViewById( R.id.startTime);
         final TextView endTime = (TextView) view.findViewById( R.id.endTime);
+
+        RadioGroup radioGroup1 = (RadioGroup) view.findViewById(R.id.radioGroup1);
+        radioGroup1.clearCheck();
+
+        /* Attach CheckedChangeListener to radio group */
+        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                rb.setChecked(true);
+            }
+        });
+
+        RadioGroup radioGroup2 = (RadioGroup) view.findViewById(R.id.radioGroup2);
+        radioGroup2.clearCheck();
+
+        /* Attach CheckedChangeListener to radio group */
+        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                rb.setChecked(true);
+            }
+        });
 
         seekBarStart.setMax(24);
         seekBarFinish.setProgress(24);

@@ -37,14 +37,14 @@
             android:layout_marginTop="8dp"
             android:textSize="12sp"/>
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/preferenceTick"
             android:background="@drawable/tick"
             android:visibility="invisible"
             android:layout_below="@+id/preferenceName"
-            android:layout_toRightOf="@+id/screen_shot"
-            android:layout_toEndOf="@+id/screen_shot" />
+            android:layout_marginTop="5dp" />
+
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
