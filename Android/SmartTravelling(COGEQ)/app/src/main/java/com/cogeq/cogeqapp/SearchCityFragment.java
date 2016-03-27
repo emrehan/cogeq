@@ -47,9 +47,10 @@ public class SearchCityFragment extends Fragment {
         searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                TextView textView = (TextView) searchList.getItemAtPosition(position);//TODO: class cast exception
-                searchView.setQuery( textView.getText(), false);
+                String cityName = (String) searchList.getItemAtPosition( position);
+                searchView.setQuery( cityName, false);
+                RequestQueue queue = Volley.newRequestQueue( getContext());
+                String url = getString( R.string.backendServer );//TODO: send the city name to server.
             }
         });
 

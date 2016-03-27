@@ -15,6 +15,7 @@ public class PickDateFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //TODO: send time to server.
         return inflater.inflate(R.layout.date_layout,null);
     }
 }
