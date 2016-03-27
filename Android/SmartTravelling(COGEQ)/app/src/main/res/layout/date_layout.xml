@@ -14,9 +14,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="We recommend at least 3 days for Honkong "
-        android:id="@+id/recommendHowManyDays"
+        android:text="Starting Date ..."
+        android:id="@+id/startDate"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please Enter Length of your travel ..."
+        android:id="@+id/lengthOfTravel"
+        android:layout_above="@+id/startDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -27,5 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+
 
 </RelativeLayout>
