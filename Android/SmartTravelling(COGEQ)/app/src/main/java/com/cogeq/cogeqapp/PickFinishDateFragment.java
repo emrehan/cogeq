@@ -28,7 +28,7 @@ import java.util.Date;
  * Created by Can on 7/29/2015.
  */
 
-public class PickDateFragment extends Fragment{
+public class PickFinishDateFragment extends Fragment{
 
     private static final int YEAR_BEGIN = 1900;
     int travelDays;
@@ -37,16 +37,7 @@ public class PickDateFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.date_layout, null);
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
-        final EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
         final TextView startDate = (TextView) view.findViewById( R.id.startDate);
-
-        lengthOfTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lengthOfTravel.setText("");
-            }
-
-        });
 
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -57,17 +48,8 @@ public class PickDateFragment extends Fragment{
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
-                String fromrfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
                 startDate.setText(text);
-                EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
-                try {
-                    travelDays = Integer.parseInt(lengthOfTravel.toString());
-                }
-                catch ( NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-                Date endDate = new Date( year - YEAR_BEGIN, monthOfYear,dayOfMonth + travelDays);
-                String url = getString(R.string.backendServer) + "/"
+                PrimaryFragment.getInstance().finishDate = date;
             }
         });
 

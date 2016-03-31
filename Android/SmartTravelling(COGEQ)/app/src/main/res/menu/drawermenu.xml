@@ -4,9 +4,13 @@
           android:id="@+id/nav_love"
           android:icon="@drawable/love"/>
 
-    <item android:title="Pick New date"
-          android:id="@+id/nav_date"
+    <item android:title="Pick Start Date"
+          android:id="@+id/start_date"
           android:icon="@drawable/date"/>
+
+    <item android:title="Pick Finish date"
+        android:id="@+id/finish_date"
+        android:icon="@drawable/date"/>
 
     <item android:title="Search for New City"
           android:id="@+id/nav_city"

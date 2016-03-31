@@ -61,8 +61,9 @@
             android:layout_height="50dp"
             android:id="@+id/rainy"
             android:background="@drawable/rainy"
-            android:layout_alignTop="@+id/sunny"
-            android:layout_alignStart="@+id/imageView4" />
+            android:layout_below="@+id/wheaterCondition"
+            android:layout_alignRight="@+id/scrollView"
+            android:layout_alignEnd="@+id/scrollView" />
 
 
         <ImageButton
@@ -166,7 +167,7 @@
                 android:layout_alignTop="@+id/mild"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="90dp" />
+                android:layout_marginRight="85dp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -176,7 +177,7 @@
                 android:layout_alignTop="@+id/mild"
                 android:layout_toLeftOf="@+id/mild"
                 android:layout_toStartOf="@+id/mild"
-                android:layout_marginRight="105dp" />
+                android:layout_marginRight="100dp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -194,9 +195,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_alignTop="@+id/sunny"
-            android:layout_alignRight="@+id/rainy"
-            android:layout_alignEnd="@+id/rainy">
+            android:layout_below="@+id/wheaterCondition"
+            android:layout_alignRight="@+id/scrollView"
+            android:layout_alignEnd="@+id/scrollView">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -206,7 +207,7 @@
                 android:layout_alignTop="@+id/sunny"
                 android:layout_toLeftOf="@+id/sunny"
                 android:layout_toStartOf="@+id/sunny"
-                android:layout_marginRight="90dp" />
+                android:layout_marginRight="85dp" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -216,7 +217,7 @@
                 android:layout_below="@+id/wheaterCondition"
                 android:layout_toLeftOf="@+id/snowy"
                 android:layout_toStartOf="@+id/snowy"
-                android:layout_marginRight="105dp" />
+                android:layout_marginRight="100dp" />
 
             <RadioButton
                 android:layout_width="wrap_content"

@@ -48,8 +48,7 @@ public class SearchCityFragment extends Fragment {
                                     int position, long id) {
                 String cityName = (String) searchList.getItemAtPosition( position);
                 searchView.setQuery( cityName, false);
-                RequestQueue queue = Volley.newRequestQueue( getContext());
-                String url = getString( R.string.backendServer );//TODO: send the city name to server.
+                PrimaryFragment.getInstance().city = cityName;
             }
         });
 

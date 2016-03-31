@@ -50,9 +50,14 @@ public class MainActivity extends AppCompatActivity{
              public boolean onNavigationItemSelected(MenuItem menuItem) {
                  mDrawerLayout.closeDrawers();
 
-                 if (menuItem.getItemId() == R.id.nav_date) {
+                 if (menuItem.getItemId() == R.id.start_date) {
                      FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                     fragmentTransaction.replace(R.id.containerView, new PickDateFragment()).commit();
+                     fragmentTransaction.replace(R.id.containerView, new PickStartDateFragment()).commit();
+                 }
+
+                 else if (menuItem.getItemId() == R.id.finish_date) {
+                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                     fragmentTransaction.replace(R.id.containerView, new PickFinishDateFragment()).commit();
                  }
 
                  else if (menuItem.getItemId() == R.id.nav_city) {
