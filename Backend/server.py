@@ -64,6 +64,13 @@ def create_travel():
 def travel(travel_id):
 	if request.method == 'GET':
 		return dumps( {'travels': list( mongo.db.travels.find({"_id": bson.ObjectId(oid=str(travel_id))}) )} )
+	if request.method == 'PUT':
+		timeFormat = "%Y-%m-%dT%H:%M:%S";
+		city = request.args.get('city')
+		ffrom = datetime.strptime(request.args.get('from'), timeFormat)
+		to = datetime.strptime(request.args.get('to'), timeFormat)
+		mongo.db.travels.update_one({"_id": bson.ObjectId(oid=str(travel_id))}, {"$set": {"city": city, "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat) }})
+		return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat) } )
 
 if __name__ == "__main__":
     app.debug = True

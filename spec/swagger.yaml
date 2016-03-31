@@ -109,7 +109,7 @@ paths:
     put:
       summary: Update a travel.
       description: |
-        Update a travel parameters such as its datetimes or activities.
+        Update a travel's datetimes.
       responses:
         200:
           description: A travel object
@@ -158,8 +158,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-            
-  /login/{code}:
+/login:
     parameters:
       - name: code
         in: path
@@ -223,9 +222,6 @@ definitions:
         type: string
       transportation:
         type: string
-    required:
-      - directions_url
-      - transportation
   Activity:
     type: object
     required:
@@ -316,3 +312,5 @@ definitions:
         type: string
   AccessToken:
     type: string
+   
+
