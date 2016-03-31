@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
 import requests 
 import json
+import bson
 from flask.ext.pymongo import PyMongo
 from bson import Binary, Code
 from bson.json_util import dumps
 from datetime import datetime
-import uuid
 
 app = Flask(__name__)
 mongo = PyMongo(app)
@@ -53,11 +53,17 @@ def create_travel():
 		if (not city or not ffrom or not to):
 			return dumps( {'Error': 'city, from and to must be provided.'} )
 		else:
-			travel_id = uuid.uuid1()
 			activities = []
-			return dumps( {'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities })
+			travel = { 'city': city, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities }
+			travel_id = mongo.db.travels.insert_one(travel).inserted_id
+			return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities } )
 	except:
 		return dumps({'Error': 'Error occured'})
+
+@app.route("/travels/<travel_id>", methods=['GET', 'PUT'])
+def travel(travel_id):
+	if request.method == 'GET':
+		return dumps( {'travels': list( mongo.db.travels.find({"_id": bson.ObjectId(oid=str(travel_id))}) )} )
 
 if __name__ == "__main__":
     app.debug = True

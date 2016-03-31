@@ -158,7 +158,8 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-/login:
+            
+  /login/{code}:
     parameters:
       - name: code
         in: path
@@ -174,19 +175,6 @@ paths:
           description: Foursquare access token.
           schema:
             $ref: '#/definitions/AccessToken'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    put:
-      summary: Update a travel.
-      description: |
-        Update a travel parameters such as its datetimes or activities.
-      responses:
-        200:
-          description: A travel object
-          schema:
-            $ref: '#/definitions/Travel'
         default:
           description: Unexpected error
           schema:
@@ -235,6 +223,9 @@ definitions:
         type: string
       transportation:
         type: string
+    required:
+      - directions_url
+      - transportation
   Activity:
     type: object
     required:
@@ -325,5 +316,3 @@ definitions:
         type: string
   AccessToken:
     type: string
-   
-
