@@ -4,6 +4,8 @@ import json
 from flask.ext.pymongo import PyMongo
 from bson import Binary, Code
 from bson.json_util import dumps
+from datetime import datetime
+import uuid
 
 app = Flask(__name__)
 mongo = PyMongo(app)
@@ -41,18 +43,19 @@ def search_cities():
         default_cities = ['Istanbul, Turkey', 'London, United Kingdom', 'Izmir, Turkey', 'Singapore, Singapore', 'NYC, United States']
         return dumps( {'cities': default_cities}, ensure_ascii=False)
         
-@app.route("/travels", methods=['GET'])
+@app.route("/travels", methods=['POST'])
 def create_travel():
+	timeFormat = "%Y-%m-%dT%H:%M:%S";
 	try:
 		city = request.args.get('city')
-		ffrom = datetime.strptime(request.args.get('from'), '%Y-%m-%dT%H:%M:%S')
-		to = datetime.strptime(request.args.get('to'), '%Y-%m-%dT%H:%M:%S')
+		ffrom = datetime.strptime(request.args.get('from'), timeFormat)
+		to = datetime.strptime(request.args.get('to'), timeFormat)
 		if (not city or not ffrom or not to):
 			return dumps( {'Error': 'city, from and to must be provided.'} )
 		else:
 			travel_id = uuid.uuid1()
 			activities = []
-			return dumps( {'travel_id': travel_id, 'from': ffrom, 'to': to, 'activities': activities })
+			return dumps( {'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities })
 	except:
 		return dumps({'Error': 'Error occured'})
 
