@@ -144,6 +144,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  
   /me:
     get:
       summary: User Profile
@@ -153,6 +154,39 @@ paths:
           description: Profile information for a user
           schema:
             $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+/login:
+    parameters:
+      - name: code
+        in: path
+        description: |
+        required: true
+        type: string
+    post: 
+      summary: Foursquare login with code.
+      description: |
+        Foursquare login.
+      responses:
+        200:
+          description: Foursquare access token.
+          schema:
+            $ref: '#/definitions/AccessToken'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Update a travel.
+      description: |
+        Update a travel parameters such as its datetimes or activities.
+      responses:
+        200:
+          description: A travel object
+          schema:
+            $ref: '#/definitions/Travel'
         default:
           description: Unexpected error
           schema:
@@ -289,3 +323,7 @@ definitions:
         type: string
       fields:
         type: string
+  AccessToken:
+    type: string
+   
+

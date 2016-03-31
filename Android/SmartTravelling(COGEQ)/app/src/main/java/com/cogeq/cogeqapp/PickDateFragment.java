@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 /**
- * Created by Ratan on 7/29/2015.
+ * Created by Can on 7/29/2015.
  */
 
 public class PickDateFragment extends Fragment{
@@ -47,7 +47,7 @@ public class PickDateFragment extends Fragment{
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                CharSequence text = monthOfYear + "/" + dayOfMonth + "/" + year;
+                CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
                 System.out.println(text);
                 startDate.setText(text);
             }
