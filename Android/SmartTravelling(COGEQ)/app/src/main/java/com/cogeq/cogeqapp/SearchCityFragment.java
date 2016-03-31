@@ -31,7 +31,6 @@ import java.util.ArrayList;
  */
 public class SearchCityFragment extends Fragment {
 
-    String[] temp = { "Ankara", "Izmir", "Istanbul" , "Antalya", "Gaziantep"};
     private ListView searchList;
     private ArrayAdapter<String> adapter;
     private SearchView searchView;
@@ -39,7 +38,7 @@ public class SearchCityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.city_layout,null);
-        adapter = new ArrayAdapter<String>( getContext(), R.layout.adapter_resource, temp );
+        adapter = new ArrayAdapter<String>( getContext(), R.layout.adapter_resource );
         searchList = (ListView)view.findViewById( R.id.search_list);
         searchView = (SearchView) view.findViewById( R.id.searchView);
         searchList.setAdapter( adapter);
@@ -72,7 +71,7 @@ public class SearchCityFragment extends Fragment {
                     searchList.setVisibility(View.INVISIBLE);
                 }
                 // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue( getContext());
+                RequestQueue queue = Volley.newRequestQueue( getActivity().getApplicationContext());
                 String url = getString( R.string.backendServer ) + "/cities?query=" + newText;
                 // Request a string response from the provided URL.
                 System.out.println( "URL:" + url);

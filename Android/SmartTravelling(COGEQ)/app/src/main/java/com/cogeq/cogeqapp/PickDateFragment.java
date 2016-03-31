@@ -17,13 +17,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Can on 7/29/2015.
  */
 
 public class PickDateFragment extends Fragment{
+
+    private static final int YEAR_BEGIN = 1900;
+    int travelDays;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -48,8 +56,18 @@ public class PickDateFragment extends Fragment{
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
-                System.out.println(text);
+                Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
+                String fromrfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
                 startDate.setText(text);
+                EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
+                try {
+                    travelDays = Integer.parseInt(lengthOfTravel.toString());
+                }
+                catch ( NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+                Date endDate = new Date( year - YEAR_BEGIN, monthOfYear,dayOfMonth + travelDays);
+                String url = getString(R.string.backendServer) + "/"
             }
         });
 
