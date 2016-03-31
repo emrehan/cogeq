@@ -178,19 +178,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-    put:
-      summary: Update a travel.
-      description: |
-        Update a travel parameters such as its datetimes or activities.
-      responses:
-        200:
-          description: A travel object
-          schema:
-            $ref: '#/definitions/Travel'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
             
 definitions:
   City:
