@@ -158,7 +158,8 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-/login:
+            
+  /login/{code}:
     parameters:
       - name: code
         in: path
@@ -222,6 +223,9 @@ definitions:
         type: string
       transportation:
         type: string
+    required:
+      - directions_url
+      - transportation
   Activity:
     type: object
     required:
@@ -312,5 +316,3 @@ definitions:
         type: string
   AccessToken:
     type: string
-   
-
