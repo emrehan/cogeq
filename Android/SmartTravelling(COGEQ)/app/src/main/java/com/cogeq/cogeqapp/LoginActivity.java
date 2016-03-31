@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.foursquare.android.nativeoauth.FoursquareOAuth;
 import com.foursquare.android.nativeoauth.model.AuthCodeResponse;
 
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                         url, params,
                         new Response.Listener<JSONObject>() {
