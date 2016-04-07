@@ -37,16 +37,7 @@ public class PickStartDateFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.date_layout, null);
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
-        final EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
         final TextView startDate = (TextView) view.findViewById( R.id.startDate);
-
-        lengthOfTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lengthOfTravel.setText("");
-            }
-
-        });
 
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -59,21 +50,10 @@ public class PickStartDateFragment extends Fragment{
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
                 PrimaryFragment.getInstance().startDate = date;
                 startDate.setText(text);
-<<<<<<< Updated upstream:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickStartDateFragment.java
-=======
-                EditText lengthOfTravel = (EditText) view.findViewById( R.id.lengthOfTravel);
-                try {
-                    travelDays = Integer.parseInt(lengthOfTravel.toString());
-                }
-                catch ( NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
+
                 Date endDate = new Date( year - YEAR_BEGIN, monthOfYear,dayOfMonth + travelDays);
                 String url = getString(R.string.backendServer) + "/";
-<<<<<<< Updated upstream:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickStartDateFragment.java
->>>>>>> Stashed changes:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickDateFragment.java
-=======
->>>>>>> Stashed changes:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickDateFragment.java
+
             }
         });
 
