@@ -24,7 +24,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     private CogeqActivityAdapter m_adapter;
     public String city;
     public Date startDate, finishDate;
-    public dayOfTravels = 1;
+    public int dayOfTravels = 1;
 
 
     @Nullable
