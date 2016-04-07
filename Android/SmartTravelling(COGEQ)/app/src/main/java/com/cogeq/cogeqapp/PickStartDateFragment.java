@@ -70,6 +70,9 @@ public class PickStartDateFragment extends Fragment{
                 }
                 Date endDate = new Date( year - YEAR_BEGIN, monthOfYear,dayOfMonth + travelDays);
                 String url = getString(R.string.backendServer) + "/";
+<<<<<<< Updated upstream:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickStartDateFragment.java
+>>>>>>> Stashed changes:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickDateFragment.java
+=======
 >>>>>>> Stashed changes:Android/SmartTravelling(COGEQ)/app/src/main/java/com/cogeq/cogeqapp/PickDateFragment.java
             }
         });
