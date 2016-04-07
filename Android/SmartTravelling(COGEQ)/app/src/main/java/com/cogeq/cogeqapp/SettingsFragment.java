@@ -27,8 +27,8 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.settings_layout, container, false);
 
-        SeekBar seekBarStart = (SeekBar) view.findViewById(R.id.seekBarStart);
-        SeekBar seekBarFinish = (SeekBar) view.findViewById(R.id.seekBarFinish);
+        final SeekBar seekBarStart = (SeekBar) view.findViewById(R.id.seekBarStart);
+        final SeekBar seekBarFinish = (SeekBar) view.findViewById(R.id.seekBarFinish);
         final TextView startTime = (TextView) view.findViewById( R.id.startTime);
         final TextView endTime = (TextView) view.findViewById( R.id.endTime);
 
@@ -57,7 +57,8 @@ public class SettingsFragment extends Fragment {
         });
 
         seekBarStart.setMax(24);
-        seekBarFinish.setProgress(24);
+
+
         seekBarFinish.setMax(24);
 
 
@@ -74,6 +75,7 @@ public class SettingsFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                 startTime.setText("Start : " + progress);
+                seekBarFinish.setProgress(progress + 1);
             }
         });
 
@@ -89,7 +91,10 @@ public class SettingsFragment extends Fragment {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                endTime.setText("End : " + progress);
+                if(seekBarFinish.getProgress() <= seekBarStart.getProgress()) {
+                    seekBarFinish.setProgress(1 + seekBarStart.getProgress());
+                }
+                endTime.setText("End : " + seekBarFinish.getProgress());
             }
         });
 

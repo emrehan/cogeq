@@ -52,9 +52,9 @@
             android:layout_height="50dp"
             android:id="@+id/sunny"
             android:background="@drawable/sunny2"
-            android:layout_below="@+id/wheaterCondition"
-            android:layout_alignLeft="@+id/sleepy"
-            android:layout_alignStart="@+id/sleepy" />
+            android:layout_alignTop="@+id/radioGroup2"
+            android:layout_alignRight="@+id/startTime"
+            android:layout_alignEnd="@+id/startTime" />
 
         <ImageButton
             android:layout_width="50dp"
@@ -80,8 +80,8 @@
             android:id="@+id/sleepy"
             android:background="@drawable/sleepy"
             android:layout_below="@+id/travelIntensity"
-            android:layout_alignRight="@+id/startTime"
-            android:layout_alignEnd="@+id/startTime" />
+            android:layout_alignLeft="@+id/sunny"
+            android:layout_alignStart="@+id/sunny" />
 
         <ImageView
             android:layout_width="60dp"
@@ -119,7 +119,8 @@
             android:layout_below="@+id/startTime"
             android:layout_alignRight="@+id/imageView4"
             android:layout_alignEnd="@+id/imageView4"
-            android:layout_marginTop="55dp" />
+            android:layout_marginTop="55dp"
+            android:nestedScrollingEnabled="true" />
 
         <SeekBar
             android:layout_width="fill_parent"
@@ -128,7 +129,9 @@
             android:layout_below="@+id/seekBarStart"
             android:layout_alignRight="@+id/scrollView"
             android:layout_alignEnd="@+id/scrollView"
-            android:layout_marginTop="26dp" />
+            android:layout_marginTop="26dp"
+            android:indeterminate="false"
+            android:splitTrack="false" />
 
         <TextView
             android:layout_width="wrap_content"

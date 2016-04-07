@@ -67,8 +67,8 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
           switch (position){
-              case 0 : return new PrimaryFragment();
-              case 1 : return new DaysFragment();
+              case 0 : return new DaysFragment();
+              case 1 : return new PrimaryFragment();
               case 2 : return new MyMapFragment();
           }
         return null;
@@ -90,9 +90,9 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Primary";
-                case 1 :
                     return "Days";
+                case 1 :
+                    return "Primary";
                 case 2 :
                     return "Map";
             }

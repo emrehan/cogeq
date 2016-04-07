@@ -39,6 +39,10 @@ public class PickFinishDateFragment extends Fragment{
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
         final TextView finishDate = (TextView) view.findViewById( R.id.date);
 
+        Date date = SavedInformation.getInstance().startDate;
+
+        datePicker.setMinDate(SavedInformation.getInstance().startDate.getTime());
+
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
