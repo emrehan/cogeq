@@ -24,6 +24,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     private CogeqActivityAdapter m_adapter;
     public String city;
     public Date startDate, finishDate;
+    public dayOfTravels = 1;
 
 
     @Nullable
@@ -31,10 +32,14 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
-        String startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(startDate);
-        String finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(finishDate);
+        String startRfc3339 = "";
+        String finishRfc3339 = "";
+        if( startDate != null && finishDate != null) {
+            startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(startDate);
+            finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(finishDate);
+        }
         //TODO: connect to the server using travels path
-
+        //TODO: getThe response and show the travels on day dayOfTravels
         m_activities = new ArrayList<>();
         m_activities.add( new CogeqActivity( "activity1", "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. 1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar."));
         m_activities.add( new CogeqActivity( "activity2", "2Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. "));

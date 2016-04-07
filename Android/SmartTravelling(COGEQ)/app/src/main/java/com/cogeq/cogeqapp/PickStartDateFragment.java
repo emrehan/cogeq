@@ -37,7 +37,7 @@ public class PickStartDateFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.date_layout, null);
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
-        final TextView startDate = (TextView) view.findViewById( R.id.startDate);
+        final TextView startDate = (TextView) view.findViewById( R.id.date);
 
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -51,7 +51,6 @@ public class PickStartDateFragment extends Fragment{
                 PrimaryFragment.getInstance().startDate = date;
                 startDate.setText(text);
 
-                Date endDate = new Date( year - YEAR_BEGIN, monthOfYear,dayOfMonth + travelDays);
                 String url = getString(R.string.backendServer) + "/";
 
             }

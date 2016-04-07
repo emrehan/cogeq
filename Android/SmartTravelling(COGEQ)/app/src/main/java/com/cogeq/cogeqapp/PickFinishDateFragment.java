@@ -37,7 +37,7 @@ public class PickFinishDateFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.date_layout, null);
         DatePicker datePicker = (DatePicker) view.findViewById( R.id.datePicker);
-        final TextView startDate = (TextView) view.findViewById( R.id.startDate);
+        final TextView finishDate = (TextView) view.findViewById( R.id.date);
 
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -48,7 +48,7 @@ public class PickFinishDateFragment extends Fragment{
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
-                startDate.setText(text);
+                finishDate.setText(text);
                 PrimaryFragment.getInstance().finishDate = date;
             }
         });
