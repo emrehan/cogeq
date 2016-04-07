@@ -14,6 +14,6 @@ mongod
 
 ## Running Server
 ```
-pip3 install -r server/requirements.txt
+pip install -r server/requirements.txt
 python3 server/server.py
 ```
