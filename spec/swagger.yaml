@@ -158,13 +158,14 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-/login:
+  /login:
     parameters:
       - name: code
-        in: path
+        in: body
         description: |
         required: true
-        type: string
+        schema: 
+          $ref: "#/definitions/LoginBody"
     post: 
       summary: Foursquare login with code.
       description: |
@@ -180,6 +181,7 @@ paths:
             $ref: '#/definitions/Error'
             
 definitions:
+  ## Object
   City:
     type: object
     properties:
@@ -217,6 +219,8 @@ definitions:
   Directions:
     type: object
     required:
+     - directions_url
+     - transportation
     properties:
       directions_url:
         type: string
@@ -312,5 +316,10 @@ definitions:
         type: string
   AccessToken:
     type: string
-   
-
+  
+  ## Bodies
+  LoginBody:
+    type: object
+    properties:
+      code:
+        type: string
