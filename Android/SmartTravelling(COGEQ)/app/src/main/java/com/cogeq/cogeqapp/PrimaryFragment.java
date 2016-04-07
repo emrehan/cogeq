@@ -8,7 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PrimaryFragment extends android.support.v4.app.ListFragment {
 
+    public static final String TAG = "Connection";
     private static PrimaryFragment instance;
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<CogeqActivity> m_activities = null;
@@ -29,17 +41,31 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onStart(){
         super.onStart();
-        Log.e( "HEYY", "OnStart is called.");
         String startRfc3339 = "";
         String finishRfc3339 = "";
         if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
             System.out.println("Dates are not null");
-            Log.e( "HEYY", "Dates are not null");
             startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format( SavedInformation.getInstance().startDate);
             finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(SavedInformation.getInstance().finishDate);
-            long days = SavedInformation.getDateDiff( SavedInformation.getInstance().startDate, SavedInformation.getInstance().finishDate, TimeUnit.DAYS);
-            System.out.println( "Day Difference = " + days);
         }
+        String url = getString(R.string.backendServer) + "/login";
+        url += "";
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                        //TODO: response
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //pDialog.hide();
+            }
+        });
     }
 
     @Nullable
