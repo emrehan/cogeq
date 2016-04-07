@@ -12,11 +12,11 @@ import java.util.ArrayList;
 /**
  * Created by cangiracoglu on 07/04/16.
  */
-public class DaysAdapter extends ArrayAdapter<String> {
+public class DaysAdapter extends ArrayAdapter<DaysObject> {
 
-        private ArrayList<String> items;
+        private ArrayList<DaysObject> items;
 
-        public DaysAdapter (Context context, int textViewResourceId, ArrayList<String> items) {
+        public DaysAdapter (Context context, int textViewResourceId, ArrayList<DaysObject> items) {
             super(context, textViewResourceId, items);
             this.items = items;
         }
@@ -28,11 +28,11 @@ public class DaysAdapter extends ArrayAdapter<String> {
                 LayoutInflater vi = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = vi.inflate(R.layout.row_of_days, null);
             }
-            String days = items.get(position);
+            DaysObject days = items.get(position);
             if (days != null) {
                 TextView tt = (TextView) v.findViewById(R.id.daysOfRows);
                 if (tt != null) {
-                    tt.setText(days);
+                    tt.setText(days.getDaysName());
                 }
             }
             return v;

@@ -48,7 +48,7 @@ public class PickStartDateFragment extends Fragment{
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
-                PrimaryFragment.getInstance().startDate = date;
+                SavedInformation.getInstance().startDate = date;
                 startDate.setText(text);
 
                 String url = getString(R.string.backendServer) + "/";

@@ -49,7 +49,7 @@ public class PickFinishDateFragment extends Fragment{
                 CharSequence text = dayOfMonth + "/" + monthOfYear + "/" + year;
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
                 finishDate.setText(text);
-                PrimaryFragment.getInstance().finishDate = date;
+                SavedInformation.getInstance().finishDate = date;
             }
         });
 
