@@ -1,6 +1,8 @@
 package com.cogeq.cogeqapp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,11 +13,13 @@ public class SavedInformation {
     public Date startDate, finishDate;
     public int dayDifference;
     public String city;
+    public List<CogeqActivity> cogeqActivities;
 
 
     private SavedInformation() {
         city = "";
         startDate = finishDate = null;
+        cogeqActivities = new ArrayList<>();
     }
 
     public static SavedInformation getInstance(){
