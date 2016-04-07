@@ -55,9 +55,6 @@ tramp
 # Flycheck
 flycheck_*.el
 
-# server auth directory
-/server/
-
 
 ### OSX ###
 .DS_Store
