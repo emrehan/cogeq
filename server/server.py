@@ -1,11 +1,13 @@
-from flask import Flask, request, jsonify
-import requests 
-import json
-import bson
-from flask.ext.pymongo import PyMongo
 from bson import Binary, Code
 from bson.json_util import dumps
 from datetime import datetime
+from flask import Flask, request, jsonify
+from flask.ext.pymongo import PyMongo
+
+import bson
+import json
+import os
+import requests 
 
 app = Flask(__name__)
 mongo = PyMongo(app)
@@ -73,5 +75,6 @@ def travel(travel_id):
 		return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat) } )
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    app.debug = True 
+    port = int(os.environ.get("PORT", 5000))   
+    app.run(port=port)
