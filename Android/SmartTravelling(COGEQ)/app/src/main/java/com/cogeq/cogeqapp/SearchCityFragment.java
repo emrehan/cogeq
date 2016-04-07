@@ -48,7 +48,7 @@ public class SearchCityFragment extends Fragment {
                                     int position, long id) {
                 String cityName = (String) searchList.getItemAtPosition( position);
                 searchView.setQuery( cityName, false);
-                PrimaryFragment.getInstance().city = cityName;
+                SavedInformation.getInstance().city = cityName;
             }
         });
 

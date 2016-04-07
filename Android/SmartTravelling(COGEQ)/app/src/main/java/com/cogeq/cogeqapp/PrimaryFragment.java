@@ -3,6 +3,7 @@ package com.cogeq.cogeqapp;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ratan on 7/29/2015.
@@ -22,10 +24,23 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<CogeqActivity> m_activities = null;
     private CogeqActivityAdapter m_adapter;
-    public String city;
-    public Date startDate, finishDate;
     public int dayOfTravels = 1;
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.e( "HEYY", "OnStart is called.");
+        String startRfc3339 = "";
+        String finishRfc3339 = "";
+        if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
+            System.out.println("Dates are not null");
+            Log.e( "HEYY", "Dates are not null");
+            startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format( SavedInformation.getInstance().startDate);
+            finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(SavedInformation.getInstance().finishDate);
+            long days = SavedInformation.getDateDiff( SavedInformation.getInstance().startDate, SavedInformation.getInstance().finishDate, TimeUnit.DAYS);
+            System.out.println( "Day Difference = " + days);
+        }
+    }
 
     @Nullable
     @Override
@@ -34,10 +49,8 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         instance = this;
         String startRfc3339 = "";
         String finishRfc3339 = "";
-        if( startDate != null && finishDate != null) {
-            startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(startDate);
-            finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(finishDate);
-        }
+        System.out.println( "OnCreateView is called");
+
         //TODO: connect to the server using travels path
         //TODO: getThe response and show the travels on day dayOfTravels
         m_activities = new ArrayList<>();
