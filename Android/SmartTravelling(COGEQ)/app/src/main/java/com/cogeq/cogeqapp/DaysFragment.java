@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -33,12 +34,14 @@ public class DaysFragment extends android.support.v4.app.ListFragment {
         //TODO: connect to the server using travels path
         //TODO: getThe response and show the travels on day dayOfTravels
         m_days = new ArrayList<>();
-        m_days.add( "26.04.2016");
-        m_days.add( "27.04.2016");
-        m_days.add( "28.04.2016");
-        m_days.add( "29.04.2016");
-        m_days.add( "30.04.2016");
-
+        if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
+            long dayDifference = SavedInformation.getDateDiff(SavedInformation.getInstance().startDate, SavedInformation.getInstance().finishDate, TimeUnit.DAYS);
+            for (int i = 0; i < dayDifference + 1; i++) {
+                Date day = SavedInformation.getInstance().startDate;
+                Date dayAfter = new Date(day.getTime() + TimeUnit.DAYS.toMillis(i));
+                m_days.add(new SimpleDateFormat("dd.MM.yyyy").format(dayAfter));
+            }
+        }
 
         m_adapter = new DaysAdapter( getActivity(), R.layout.row_of_days, m_days);
         setListAdapter(m_adapter);
