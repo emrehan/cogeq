@@ -70,20 +70,22 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                         public void onResponse(JSONObject response) {
                             Log.d(TAG, response.toString());
                             SavedInformation.getInstance().cogeqActivities = new ArrayList<>();
-                            Log.d( "INFO", "Previous Cogeq Activities are deleted.")
+                            Log.d( "INFO", "Previous Cogeq Activities are deleted.");
                             try {
                                 JSONArray array = response.getJSONArray("activities");
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject activity = array.getJSONObject(i);
                                     CogeqActivity cActivity = new CogeqActivity();
-                                    cActivity.setName( activity.getString("name"));
+                                    cActivity.setName(activity.getString("name"));
                                     cActivity.setExplanation(activity.getString("description"));
                                     cActivity.setImageUrl(activity.getString("picture_url"));
-                                    JSONObject place = activity.getJSONObject( "place");
-                                    cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
+                                    //JSONObject place = activity.getJSONObject( "place");
+                                    //cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
                                     SavedInformation.getInstance().cogeqActivities.add( cActivity);
+                                    m_activities.add( cActivity);
+                                    m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
+                                    setListAdapter(m_adapter);
                                 }
-                                
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

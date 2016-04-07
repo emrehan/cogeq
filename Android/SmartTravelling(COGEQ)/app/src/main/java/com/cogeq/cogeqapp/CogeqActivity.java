@@ -19,6 +19,13 @@ public class CogeqActivity {
         this.name = name;
         this.explanation = exp;
     }
+
+    public CogeqActivity() {
+        this.name = "";
+        this.explanation = "";
+        position = new LatLng( 40, 40);
+    }
+
     public String getName() {
         return name;
     }
