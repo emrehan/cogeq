@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class PathFragment extends Fragment {
+public class DaysFragment extends Fragment {
 
     @Nullable
     @Override
