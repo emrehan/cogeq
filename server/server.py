@@ -55,8 +55,9 @@ def create_travel():
 		if (not city or not ffrom or not to):
 			return dumps( {'Error': 'city, from and to must be provided.'} )
 		else:
-			activity1 = {"id": "123", "name": "Kizilay", "type": "visit", "picture_url": "https://pbs.twimg.com/profile_images/666942007/kizilay_logo545px.png", "place": "", "directions": "", "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat)}
-			activities = [activity1];
+			activity1 = {"id": "123", "name": "Kizilay", "type": "visit", "picture_url": "https://pbs.twimg.com/profile_images/666942007/kizilay_logo545px.png", "description": "Kizilay is a nice place", "place": "", "directions": "", "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat)}
+			activity2 = {"id": "1234", "name": "Kofi", "type": "visit", "picture_url": "http://img.bleacherreport.net/img/slides/photos/002/990/036/kofi-kingston1_crop_north.jpg?w=630&h=420&q=75", "description": "Kofi is a nice place", "place": "", "directions": "", "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat)}
+			activities = [activity1, activity2];
 			travel = { 'city': city, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities }
 			travel_id = mongo.db.travels.insert_one(travel).inserted_id
 			return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities } )
