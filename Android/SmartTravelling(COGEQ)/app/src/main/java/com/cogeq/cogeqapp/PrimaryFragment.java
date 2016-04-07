@@ -3,29 +3,70 @@ package com.cogeq.cogeqapp;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ratan on 7/29/2015.
  */
 public class PrimaryFragment extends android.support.v4.app.ListFragment {
 
+    public static final String TAG = "Connection";
     private static PrimaryFragment instance;
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<CogeqActivity> m_activities = null;
     private CogeqActivityAdapter m_adapter;
-    public String city;
-    public Date startDate, finishDate;
     public int dayOfTravels = 1;
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        String startRfc3339 = "";
+        String finishRfc3339 = "";
+        if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
+            System.out.println("Dates are not null");
+            startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format( SavedInformation.getInstance().startDate);
+            finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(SavedInformation.getInstance().finishDate);
+        }
+        String url = getString(R.string.backendServer) + "/login";
+        url += "";
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest( Request.Method.POST, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                        //TODO: response
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //pDialog.hide();
+            }
+        });
+    }
 
     @Nullable
     @Override
@@ -34,10 +75,8 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         instance = this;
         String startRfc3339 = "";
         String finishRfc3339 = "";
-        if( startDate != null && finishDate != null) {
-            startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(startDate);
-            finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(finishDate);
-        }
+        System.out.println( "OnCreateView is called");
+
         //TODO: connect to the server using travels path
         //TODO: getThe response and show the travels on day dayOfTravels
         m_activities = new ArrayList<>();

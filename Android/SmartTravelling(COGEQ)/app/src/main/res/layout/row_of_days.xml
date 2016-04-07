@@ -18,5 +18,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/daysTick"
+        android:layout_centerVertical="true"
+        android:background="@drawable/tick"
+        android:visibility="invisible"
+        android:layout_alignRight="@+id/daysOfRows"
+        android:layout_alignEnd="@+id/daysOfRows" />
+
 </RelativeLayout>
 

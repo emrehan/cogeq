@@ -35,8 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     public void loginButtonsOnClick( View view){
         if( view.getId() == R.id.foursquareButton){
             System.out.println("Foursquare Button Pressed");
-            Intent intent = FoursquareOAuth.getConnectIntent( this, CLIENT_ID);
-            startActivityForResult(intent, REQUEST_CODE_FSQ_CONNECT);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            //Intent intent = FoursquareOAuth.getConnectIntent( this, CLIENT_ID);
+            //startActivityForResult(intent, REQUEST_CODE_FSQ_CONNECT);
         }
     }
     @Override
