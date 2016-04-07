@@ -36,12 +36,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.cogeq.cogeqapp.LauncherActivity"
-            android:label="@string/title_activity_launcher"
+            android:name="com.cogeq.cogeqapp.LoginActivity"
+            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,14 +49,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <!--<activity
             android:name="com.cogeq.cogeqapp.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" />-->
         <activity
             android:name="com.cogeq.cogeqapp.CogeqActivityViewActivity"
             android:label="@string/title_activity_cogeq_activity_view"
             android:theme="@style/AppTheme"></activity>
     </application>
 
-</manifest>
+    </manifest>
