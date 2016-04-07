@@ -206,8 +206,6 @@ definitions:
         type: string
       description:
         type: string
-      picture_url:
-        type: string
       foursquare_url:
         type: string
       tripadvisor_url:
@@ -215,6 +213,10 @@ definitions:
       google_url:
         type: string
       googlemaps_url:
+        type: string
+      latitude:
+        type: string
+      longitude:
         type: string
   Directions:
     type: object
@@ -244,6 +246,8 @@ definitions:
           The type of the activity.
           One of the following list
           'visit', 'directions'
+      picture_url:
+        type: string
       place:
         $ref: '#/definitions/Place'
       directions:
