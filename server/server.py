@@ -53,7 +53,8 @@ def create_travel():
 		if (not city or not ffrom or not to):
 			return dumps( {'Error': 'city, from and to must be provided.'} )
 		else:
-			activities = []
+			activity1 = {"id": "123", "name": "Kizilay", "type": "visit", "picture_url": "https://pbs.twimg.com/profile_images/666942007/kizilay_logo545px.png", "place": "", "directions": "", "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat)}
+			activities = [activity1];
 			travel = { 'city': city, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities }
 			travel_id = mongo.db.travels.insert_one(travel).inserted_id
 			return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities } )
