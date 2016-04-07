@@ -1,6 +1,7 @@
 package com.cogeq.cogeqapp;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -121,11 +123,19 @@ public class MainActivity extends AppCompatActivity{
     public void daysOnClick( View view){
         int pos = DaysFragment.getInstance().getListView().getPositionForView(view);
 
+        ListView list = (ListView)view.getParent();
         for (int i = 0; i < DaysFragment.getInstance().getDays().size(); i++) {
-            ListView list = (ListView)view.getParent();
-            list.getChildAt(i).findViewById(R.id.daysTick).setVisibility(View.INVISIBLE);
-            list.getChildAt(pos).findViewById(R.id.daysTick).setVisibility(View.VISIBLE);
+
+            DaysFragment.getInstance().getDays().get(i).setIsSelected(false);
+            if(list.getChildAt(i) != null) {
+                ImageView imView = (ImageView) list.getChildAt(i).findViewById(R.id.daysTick);
+                if (imView != null)
+                    imView.setVisibility(View.INVISIBLE);
+                System.out.println(i);
+            }
+            System.out.println(i + ".");
         }
+        view.findViewById(R.id.daysTick).setVisibility(View.VISIBLE);
 
         DaysFragment.getInstance().getDays().get(pos).setIsSelected(true);
     }
