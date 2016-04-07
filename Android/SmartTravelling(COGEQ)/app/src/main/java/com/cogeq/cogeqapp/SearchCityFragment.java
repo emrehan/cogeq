@@ -3,6 +3,7 @@ package com.cogeq.cogeqapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +103,7 @@ public class SearchCityFragment extends Fragment {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println( "Connection Error!");
+                        Log.e("CONNECTION", "Connection Error!");
                     }
                 });
 

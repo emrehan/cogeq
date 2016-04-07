@@ -51,14 +51,15 @@ def create_travel():
         ffrom = datetime.strptime(request.args.get('from'), timeFormat)
         to = datetime.strptime(request.args.get('to'), timeFormat)
         if (not city or not ffrom or not to):
-            return bson.dumps( {'Error': 'city, from and to must be provided.'} )
+            return dumps( {'Error': 'city, from and to must be provided.'} )
         else:
-            activities = []
+            activity1 = {"id": "123", "name": "Kizilay", "type": "visit", "picture_url": "https://pbs.twimg.com/profile_images/666942007/kizilay_logo545px.png", "place": "", "directions": "", "from": ffrom.strftime(timeFormat), "to": to.strftime(timeFormat)}
+            activities = [activity1];
             travel = { 'city': city, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities }
             travel_id = mongo.db.travels.insert_one(travel).inserted_id
-            return bson.dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities } )
+            return dumps( { 'travel_id': travel_id, 'from': ffrom.strftime(timeFormat), 'to': to.strftime(timeFormat), 'activities': activities } )
     except:
-        return bson.dumps({'Error': 'Error occured'})
+        return dumps({'Error': 'Error occured'})
 
 @app.route("/travels/<travel_id>", methods=['GET', 'PUT'])
 def travel(travel_id):

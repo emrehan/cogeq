@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                         //pDialog.hide();
                     }
                 });
+                queue.add( jsonObjReq);
                 break;
         }
     }
