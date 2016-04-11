@@ -1,6 +1,7 @@
 package com.cogeq.cogeqapp;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,12 @@ public class ActivitiesAreEmptyListAdapter extends ArrayAdapter<String> {
             v = vi.inflate(R.layout.empty_list_row, null);
         }
         TextView textView = (TextView) v.findViewById(R.id.empty_list_textView);
+        ImageView iv = (ImageView) v.findViewById( R.id.selectionTick);
         switch (position){
             case 0:
                 if( startSelected){
                     textView.setText( "Start Date is Selected.");
+                    iv.setVisibility( View.VISIBLE);
                 }
                 else{
                     textView.setText( "You should select a start date");
@@ -46,6 +49,7 @@ public class ActivitiesAreEmptyListAdapter extends ArrayAdapter<String> {
             case 1:
                 if( endSelected){
                     textView.setText( "End Date is Selected.");
+                    iv.setVisibility(View.VISIBLE);
                 }
                 else{
                     textView.setText( "You should select a end date");
@@ -54,6 +58,7 @@ public class ActivitiesAreEmptyListAdapter extends ArrayAdapter<String> {
             case 2:
                 if( citySelected){
                     textView.setText( "City is Selected.");
+                    iv.setVisibility(View.VISIBLE);
                 }
                 else{
                     textView.setText( "You should select a city");
