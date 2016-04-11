@@ -131,13 +131,13 @@ public class MainActivity extends AppCompatActivity{
                 ImageView imView = (ImageView) list.getChildAt(i).findViewById(R.id.daysTick);
                 if (imView != null)
                     imView.setVisibility(View.INVISIBLE);
-                System.out.println(i);
+                //TODO make all view's imView invisible.
             }
-            System.out.println(i + ".");
         }
         view.findViewById(R.id.daysTick).setVisibility(View.VISIBLE);
 
         DaysFragment.getInstance().getDays().get(pos).setIsSelected(true);
+        PrimaryFragment.getInstance().populateFragment();
     }
 
     public void activityOnClick( View view){

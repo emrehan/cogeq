@@ -45,7 +45,7 @@ public class SavedInformation {
         SavedInformation.getInstance().cogeqActivities.get(2).setPosition( new LatLng(39.564, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(3).setPosition( new LatLng(39.65465, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(0).setStart(format.parse("2016-04-11T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-12T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-11T00:00:00"));
         SavedInformation.getInstance().cogeqActivities.get(2).setStart( format.parse( "2016-04-13T00:00:00"));
         SavedInformation.getInstance().cogeqActivities.get(3).setStart( format.parse( "2016-04-14T00:00:00"));
     }
@@ -64,12 +64,18 @@ public class SavedInformation {
 
     public ArrayList<CogeqActivity> getActivitiesForSelectedDay() {
         ArrayList<CogeqActivity> list = new ArrayList<>();
-        Log.d( "GET_ACTIVITIES", "Get Activities Called.")
+        Log.d( "GET_ACTIVITIES", "Get Activities Called.");
         if( currentDay != null){
             for( CogeqActivity a : cogeqActivities){
                 long dayDifference = getDateDiff( currentDay, a.getStart(), TimeUnit.DAYS);
                 Log.d( "GET_ACTIVITIES",  "Day Difference:" + dayDifference);
+                if( dayDifference == 0){
+                    list.add( a);
+                }
             }
+        }
+        else{
+            Log.d( "GET_ACTIVITIES", "Current day is null.");
         }
         return list;
     }

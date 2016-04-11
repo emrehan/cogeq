@@ -78,10 +78,7 @@ public class SearchCityFragment extends Fragment {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                // Display the first 500 characters of the response string.
-                                //TODO: parse json
                                 try {
-                                    //JSONObject jsonObject = new JSONObject(response);
                                     JSONObject jsonObject = response;
                                     JSONArray jsonArray = jsonObject.getJSONArray("cities");
                                     ArrayList<String> list = new ArrayList<String>();
@@ -103,6 +100,7 @@ public class SearchCityFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("CONNECTION", "Connection Error!");
+                        SavedInformation.getInstance().city = "ERROR"; // TODO remove this because it doesnt make sense.
                     }
                 });
 

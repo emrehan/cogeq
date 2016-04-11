@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +36,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class PrimaryFragment extends android.support.v4.app.ListFragment {
 
-    public static final String TAG = "Connection";
     private static PrimaryFragment instance;
     private ProgressDialog m_ProgressDialog = null;
     private ArrayList<CogeqActivity> m_activities = null;
@@ -44,11 +45,18 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onStart(){
         super.onStart();
-        Log.e( "HEY", "OnStart is called.");
+        Log.e("PRIMARY_FRAGMENT", "OnStart is called.");
+        populateFragment();
+    }
+
+    public void populateFragment(){
         String startRfc3339 = "";
         String finishRfc3339 = "";
-        if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
+        if( SavedInformation.getInstance().startDate != null)
+        {
             startRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format( SavedInformation.getInstance().startDate);
+        }
+        if(SavedInformation.getInstance().finishDate != null){
             finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(SavedInformation.getInstance().finishDate);
         }
         String city = SavedInformation.getInstance().city;
@@ -62,15 +70,15 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             }
             url += "&from=" + startRfc3339;
             url += "&to=" + finishRfc3339;
-            System.out.println( "URL: " + url );
+            Log.d(  "PRIMARY_FRAGMENT", "URL: " + url );
             RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d(TAG, response.toString());
+                            Log.d( "CONNECTION", response.toString());
                             SavedInformation.getInstance().cogeqActivities = new ArrayList<>();
-                            Log.d( "INFO", "Previous Cogeq Activities are deleted.");
+                            Log.d("INFO", "Previous Cogeq Activities are deleted.");
                             try {
                                 JSONArray array = response.getJSONArray("activities");
                                 for (int i = 0; i < array.length(); i++) {
@@ -81,26 +89,65 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                                     cActivity.setImageUrl(activity.getString("picture_url"));
                                     //JSONObject place = activity.getJSONObject( "place");
                                     //cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
-                                    SavedInformation.getInstance().cogeqActivities.add( cActivity);
-                                    m_activities.add( cActivity);
-                                    m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-                                    setListAdapter(m_adapter);
+                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                    cActivity.setStart(format.parse(activity.getString("from")));
+                                    cActivity.setEnd(format.parse(activity.getString("to")));
+                                    SavedInformation.getInstance().cogeqActivities.add(cActivity);
                                 }
                             } catch (JSONException e) {
+                                Log.e( "JSON", "Eror while parsing response!");
+                                e.printStackTrace();
+                            } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+                            m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
+                            m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
+                            setListAdapter(m_adapter);
 
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    //pDialog.hide();
+                    Log.e( "CONNECTION", "Connection error while getting Activities");
+                    VolleyLog.d( "CONNECTION", "Error: " + error.getMessage());
                 }
             });
             queue.add(jsonObjectRequest);
+            //TODO burdan sonrası debug için, sonradan burayı sil
+            try {
+                SavedInformation.getInstance().fillActivitiesWithDebug(); //TODO remove this before deployment
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
+            m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
+            setListAdapter(m_adapter);
         }
+        else {
+            boolean startSelected, endSelected, citySelected;
+            startSelected = endSelected = citySelected = true;
+            if (startRfc3339 == "") {
+                startSelected = false;
+                Log.d( "EMPTY", "Start is null");
+            }
+            if (finishRfc3339 == "") {
+                endSelected = false;
+                Log.d( "EMPTY", "End is null");
+            }
+            if (city == "") {
+                citySelected = false;
+                Log.d( "EMPTY", "City is null");
+            }
+            ArrayList<String> list = new ArrayList<>();
+            list.add( "" + startSelected);
+            list.add( "" + endSelected);
+            list.add( "" + citySelected);
+            ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, startSelected, endSelected, citySelected, list);
+            setListAdapter(adapter);
+            Log.d( "ADAPTER", "emptyList adapter is set.");
+        }
+
     }
 
     @Nullable
@@ -110,23 +157,10 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         instance = this;
         String startRfc3339 = "";
         String finishRfc3339 = "";
-        System.out.println( "OnCreateView is called");
 
         //TODO: connect to the server using travels path
         //TODO: getThe response and show the travels on day dayOfTravels
         m_activities = new ArrayList<>();
-//        m_activities.add( new CogeqActivity( "activity1", "1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. 1Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar."));
-//        m_activities.add( new CogeqActivity( "activity2", "2Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. "));
-//        m_activities.add( new CogeqActivity( "activity3", "3Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. "));
-//        m_activities.add(new CogeqActivity("activity4", "4Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sagittis libero mi, nec vestibulum sem tincidunt vulputate. Curabitur ex lorem, consectetur eget orci vitae, iaculis posuere tellus. Ut ut iaculis lorem. Duis pretium imperdiet lorem, id blandit nunc porttitor in. Morbi et erat molestie, tempor sapien eget, feugiat elit. Etiam vehicula est ex, sed hendrerit massa tristique at. Curabitur porttitor velit lacus, eu varius odio molestie quis. Fusce tincidunt tincidunt venenatis. Donec vestibulum pretium lectus non pulvinar. "));
-//        m_activities.get(0).setImageUrl("http://www.asociatiaedelvais.ro/wp-content/uploads/2014/11/goodwp.com_163111.jpg");
-//        m_activities.get(1).setImageUrl("http://drugfree.scdn1.secure.raxcdn.com/wp-content/uploads/2010/09/alcohol11.jpg");
-//        m_activities.get(2).setImageUrl("http://orig12.deviantart.net/e367/f/2010/327/4/c/sunny_beach_14475003_by_stockproject1-d33h5n6.jpg");
-//        m_activities.get(3).setImageUrl("http://covermaker.net/thumbnail/10/1058.jpg");
-//        m_activities.get(0).setPosition( new LatLng(39.9117, 32.8403));
-//        m_activities.get(1).setPosition( new LatLng(39.8563, 32.8403));
-//        m_activities.get(2).setPosition( new LatLng(39.564, 32.8403));
-//        m_activities.get(3).setPosition( new LatLng(39.65465, 32.8403));
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
         setListAdapter(m_adapter);
         return inflater.inflate(R.layout.primary_layout,null);
