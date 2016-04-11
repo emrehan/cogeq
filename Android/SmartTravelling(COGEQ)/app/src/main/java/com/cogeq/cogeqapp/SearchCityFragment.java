@@ -59,7 +59,6 @@ public class SearchCityFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchList.setVisibility(View.INVISIBLE);
-                System.out.println( "Query:" + query);
                 return false;
             }
 
@@ -74,7 +73,7 @@ public class SearchCityFragment extends Fragment {
                 RequestQueue queue = Volley.newRequestQueue( getActivity().getApplicationContext());
                 String url = getString( R.string.backendServer ) + "/cities?query=" + newText;
                 // Request a string response from the provided URL.
-                System.out.println( "URL:" + url);
+                Log.d( "CONNECTION","URL:" + url);
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override

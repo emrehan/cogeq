@@ -3,6 +3,7 @@ package com.cogeq.cogeqapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class MyMapFragment extends Fragment {
             view = (RelativeLayout) inflater.inflate(R.layout.map_layout, container, false);
         }
         catch ( InflateException e){
-            System.out.println( "Inflate Exception on Map!!");
+            Log.e("MAP", "Inflate Exception on Map!!");
         }
 
         setUpMapIfNeeded(); // For setting up the MapFragment
@@ -60,7 +61,7 @@ public class MyMapFragment extends Fragment {
                     .findFragmentById(R.id.location_map));
             if( mapFragment != null) {
                 mMap = mapFragment.getMap();
-                System.out.println( "Fragment is null 2");
+                Log.d( "MAP", "Fragment is null 2");
             }
             // Check if we were successful in obtaining the map.
             if (mMap != null)
@@ -99,11 +100,11 @@ public class MyMapFragment extends Fragment {
             // Try to obtain the map from the SupportMapFragment.
             SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map));
             if( mapFragment != null) {
-                System.out.println( "Fragment is not null!!");
+                Log.d( "MAP", "Fragment is not null!!");
                 mMap = mapFragment.getMap(); // getMap is deprecated
             }
             else{
-                System.out.println( "Fragment is still null.");
+                Log.d( "MAP","Fragment is still null.");
             }
             // Check if we were successful in obtaining the map.
             if (mMap != null)

@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void loginButtonsOnClick( View view){
         if( view.getId() == R.id.foursquareButton){
-            System.out.println("Foursquare Button Pressed");
+            Log.d( "LOG_IN", "Foursquare Button Pressed");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             //Intent intent = FoursquareOAuth.getConnectIntent( this, CLIENT_ID);
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 AuthCodeResponse codeResponse = FoursquareOAuth.getAuthCodeFromResult(resultCode, data);
                 /* ... */
                 codeResponse.getException();
-                System.out.println( "Code:" + codeResponse.getCode());
+                Log.d( "LOG_IN", "Code:" + codeResponse.getCode());
                 String url = getString(R.string.backendServer) + "/login";
                 JSONObject params = new JSONObject();
                 try {

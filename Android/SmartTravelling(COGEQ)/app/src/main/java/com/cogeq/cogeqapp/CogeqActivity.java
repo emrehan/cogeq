@@ -4,6 +4,8 @@ import android.content.ContentQueryMap;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Date;
+
 
 /**
  * Created by saygin on 3/12/2016.
@@ -14,6 +16,7 @@ public class CogeqActivity {
     private double durationInHours;
     private String imageUrl;
     private LatLng position;
+    private Date start, end;
 
     public CogeqActivity( String name, String exp){
         this.name = name;
@@ -55,6 +58,22 @@ public class CogeqActivity {
 
     public void setPosition(LatLng position) {
         this.position = position;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
     }
     //private Location location;
 }
