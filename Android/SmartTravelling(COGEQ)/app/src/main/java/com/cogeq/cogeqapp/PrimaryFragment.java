@@ -80,19 +80,24 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                             SavedInformation.getInstance().cogeqActivities = new ArrayList<>();
                             Log.d("INFO", "Previous Cogeq Activities are deleted.");
                             try {
-                                JSONArray array = response.getJSONArray("activities");
-                                for (int i = 0; i < array.length(); i++) {
-                                    JSONObject activity = array.getJSONObject(i);
-                                    CogeqActivity cActivity = new CogeqActivity();
-                                    cActivity.setName(activity.getString("name"));
-                                    cActivity.setExplanation(activity.getString("description"));
-                                    cActivity.setImageUrl(activity.getString("picture_url"));
-                                    //JSONObject place = activity.getJSONObject( "place");
-                                    //cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
-                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                                    cActivity.setStart(format.parse(activity.getString("from")));
-                                    cActivity.setEnd(format.parse(activity.getString("to")));
-                                    SavedInformation.getInstance().cogeqActivities.add(cActivity);
+                                if( response.has( "Error") ){
+                                    Log.e( "JSON", "Error is returned.");
+                                }
+                                else{
+                                    JSONArray array = response.getJSONArray("activities");
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject activity = array.getJSONObject(i);
+                                        CogeqActivity cActivity = new CogeqActivity();
+                                        cActivity.setName(activity.getString("name"));
+                                        cActivity.setExplanation(activity.getString("description"));
+                                        cActivity.setImageUrl(activity.getString("picture_url"));
+                                        //JSONObject place = activity.getJSONObject( "place");
+                                        //cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
+                                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                        cActivity.setStart(format.parse(activity.getString("from")));
+                                        cActivity.setEnd(format.parse(activity.getString("to")));
+                                        SavedInformation.getInstance().cogeqActivities.add(cActivity);
+                                    }
                                 }
                             } catch (JSONException e) {
                                 Log.e( "JSON", "Eror while parsing response!");

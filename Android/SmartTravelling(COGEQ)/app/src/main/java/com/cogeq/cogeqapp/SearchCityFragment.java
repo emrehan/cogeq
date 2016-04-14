@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -71,9 +73,15 @@ public class SearchCityFragment extends Fragment {
                 }
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue( getActivity().getApplicationContext());
+                try {
+                    newText = URLEncoder.encode(newText, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    Log.e( "ENCODE", "Error Occured while encoding.");
+                    e.printStackTrace();
+                }
                 String url = getString( R.string.backendServer ) + "/cities?query=" + newText;
                 // Request a string response from the provided URL.
-                Log.d( "CONNECTION","URL:" + url);
+//                Log.d( "CONNECTION","URL:" + url);
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -100,7 +108,9 @@ public class SearchCityFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("CONNECTION", "Connection Error!");
-                        SavedInformation.getInstance().city = "ERROR"; // TODO remove this because it doesnt make sense.
+                        error.printStackTrace();
+//                        Log.d( "CONNECTION", "City Name is  set to 'ERROR'");
+//                        SavedInformation.getInstance().city = "ERROR"; // TODO remove this because it doesnt make sense.
                     }
                 });
 
