@@ -13,9 +13,9 @@
         android:layout_height="180dp"
         android:id="@+id/cogeqLogo"
         android:background="@drawable/cogeq2"
-        android:layout_marginTop="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/foursquareButton"
+        android:layout_alignStart="@+id/foursquareButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,14 +49,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="loginButtonsOnClick" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SignUp"
-        android:id="@+id/signUpButton"
-        android:onClick="signUpButtonPressed"
-        android:layout_above="@+id/foursquareButton"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

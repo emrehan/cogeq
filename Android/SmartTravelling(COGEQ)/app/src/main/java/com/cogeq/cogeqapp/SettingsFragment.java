@@ -74,8 +74,10 @@ public class SettingsFragment extends Fragment {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                startTime.setText("Start : " + progress);
-                seekBarFinish.setProgress(progress + 1);
+                if (seekBarFinish.getProgress() <= seekBarStart.getProgress()) {
+                    startTime.setText("Start : " + progress);
+                    seekBarFinish.setProgress(progress + 1);
+                }
             }
         });
 
@@ -90,6 +92,9 @@ public class SettingsFragment extends Fragment {
             }
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                if(seekBarFinish.getProgress() == 24)
+                    seekBarFinish.setProgress(23);
 
                 if(seekBarFinish.getProgress() <= seekBarStart.getProgress()) {
                     seekBarFinish.setProgress(1 + seekBarStart.getProgress());
