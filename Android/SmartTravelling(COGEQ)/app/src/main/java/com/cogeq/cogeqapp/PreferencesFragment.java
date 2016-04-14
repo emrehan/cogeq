@@ -47,6 +47,9 @@ public class PreferencesFragment extends Fragment {
         items.add(new PreferenceObject(R.drawable.economy,"Economy"));
         items.add(new PreferenceObject(R.drawable.nature,"Nature"));
         items.add(new PreferenceObject(R.drawable.shopping,"Shopping"));
+        items.add(new PreferenceObject(R.drawable.coffee,"Coffee"));
+        items.add(new PreferenceObject(R.drawable.drinking,"Drinking"));
+        items.add(new PreferenceObject(R.drawable.desserts,"Desserts"));
         return items;
     }
 
