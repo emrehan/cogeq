@@ -45,7 +45,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onStart(){
         super.onStart();
-        Log.e("PRIMARY_FRAGMENT", "OnStart is called.");
+        Log.d("PRIMARY_FRAGMENT", "OnStart is called.");
         populateFragment();
     }
 
@@ -70,6 +70,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             }
             url += "&from=" + startRfc3339;
             url += "&to=" + finishRfc3339;
+            url += "&access_token=" + SavedInformation.getInstance().accessToken;
             Log.d(  "PRIMARY_FRAGMENT", "URL: " + url );
             RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,

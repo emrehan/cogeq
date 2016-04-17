@@ -41,7 +41,7 @@ public class PickFinishDateFragment extends Fragment{
 
         Date date = SavedInformation.getInstance().startDate;
 
-        datePicker.setMinDate(SavedInformation.getInstance().startDate.getTime());
+        //datePicker.setMinDate(date.getTime());
 
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();

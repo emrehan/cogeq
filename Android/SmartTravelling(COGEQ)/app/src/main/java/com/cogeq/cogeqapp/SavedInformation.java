@@ -20,6 +20,7 @@ public class SavedInformation {
     public Date currentDay;
     public String city;
     public List<CogeqActivity> cogeqActivities;
+    public String accessToken;
 
 
     private SavedInformation() {
@@ -44,10 +45,10 @@ public class SavedInformation {
         SavedInformation.getInstance().cogeqActivities.get(1).setPosition( new LatLng(39.8563, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(2).setPosition( new LatLng(39.564, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(3).setPosition( new LatLng(39.65465, 32.8403));
-        SavedInformation.getInstance().cogeqActivities.get(0).setStart(format.parse("2016-04-11T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-11T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(2).setStart( format.parse( "2016-04-13T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(3).setStart( format.parse( "2016-04-14T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(0).setStart(format.parse("2016-04-17T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-17T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(2).setStart( format.parse( "2016-04-18T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(3).setStart( format.parse( "2016-04-19T00:00:00"));
     }
 
     public static SavedInformation getInstance(){

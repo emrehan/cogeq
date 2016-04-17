@@ -3,6 +3,7 @@ package com.cogeq.cogeqapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.View;
 
@@ -35,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     public void loginButtonsOnClick( View view){
         if( view.getId() == R.id.foursquareButton){
             Log.d( "LOG_IN", "Foursquare Button Pressed");
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            //Intent intent = FoursquareOAuth.getConnectIntent( this, CLIENT_ID);
-            //startActivityForResult(intent, REQUEST_CODE_FSQ_CONNECT);
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+            Intent intent = FoursquareOAuth.getConnectIntent( this, CLIENT_ID);
+            startActivityForResult(intent, REQUEST_CODE_FSQ_CONNECT);
         }
     }
     @Override
@@ -49,29 +50,32 @@ public class LoginActivity extends AppCompatActivity {
                 /* ... */
                 codeResponse.getException();
                 Log.d( "LOG_IN", "Code:" + codeResponse.getCode());
-                String url = getString(R.string.backendServer) + "/login";
-                JSONObject params = new JSONObject();
-                try {
-                    params.put( "code" , codeResponse.getCode() );
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                String url = getString(R.string.backendServer) + "/login?code=";
+                url += codeResponse.getCode();
+                Log.d( "CONNECTION", "URL:" + url);
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                        url, params,
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                        url, null,
                         new Response.Listener<JSONObject>() {
 
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d(TAG, response.toString());
-                                // pDialog.hide();
+                                try {
+                                    SavedInformation.getInstance().accessToken = response.getString("access_token");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.d( "SUCCESS" , "Access Token: " + SavedInformation.getInstance().accessToken);
+                                Intent intent = new Intent( getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
                             }
                         }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e( "CONNECTION", "Error Occured in connection");
                         VolleyLog.d(TAG, "Error: " + error.getMessage());
-                        //pDialog.hide();
                     }
                 });
                 queue.add( jsonObjReq);

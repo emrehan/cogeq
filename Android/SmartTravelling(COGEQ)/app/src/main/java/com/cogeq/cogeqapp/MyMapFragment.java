@@ -31,7 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.location.LocationListener;
+import android.location.LocationListener;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -48,6 +48,7 @@ import java.util.ArrayList;
 public class MyMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
 
+    private static MyMapFragment instance = null;
     private static View view;
     /**
      * Note that this may be null if the Google Play services APK is not
@@ -59,6 +60,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        instance = this;
         if (container == null) {
             return null;
         }
@@ -68,9 +70,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
         catch ( InflateException e){
             Log.e("MAP", "Inflate Exception on Map!!");
         }
-
         setUpMapIfNeeded(); // For setting up the MapFragment
-
 
         return view;
     }
@@ -83,8 +83,13 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             SupportMapFragment mapFragment = ((SupportMapFragment) MainActivity.fragmentManager
                     .findFragmentById(R.id.location_map));
 
-            //mapFragment.getMapAsync(this);
-
+            if( mapFragment == null){
+                Log.e( "MAP", "Map fragment is null");
+            }
+            else{
+                Log.d( "MAP", "Map fragment is not null" );
+                mapFragment.getMapAsync( instance);
+            }
             if( mapFragment != null) {
                 mMap = mapFragment.getMap();
                 Log.d( "MAP", "Fragment is null 2");
@@ -104,6 +109,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
      */
     private static void setUpMap() {
         // For showing a move to my loction button
+        Log.d("MAP", "Setup map is called");
         mMap.setMyLocationEnabled(true);
 
         //Add activities' positions
@@ -112,6 +118,9 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             mMap.addMarker( new MarkerOptions().position( activities.get(i).getPosition()).title(activities.get(i).getName()));
         }
 
+        if( instance != null) {
+            instance.onMapReady(mMap);
+        }
         // For zooming automatically to the Dropped PIN Location
 //        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
 //                longitude), 12.0f));
@@ -149,6 +158,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d( "MAP", "On map ready is called.");
         mMap = googleMap;
         //Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         //startActivity(gpsOptionsIntent);
@@ -157,9 +167,9 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             // Zooming camera to position of the user
             // Get location from GPS if it's available
             LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (android.location.LocationListener) this);
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (android.location.LocationListener) this);
-            lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, (android.location.LocationListener) this);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
             Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (myLocation == null)
                 myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -180,6 +190,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
                         myLocation = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                     Thread.sleep(1000);
                     counter += 1000;
+                    Log.d( "SANIYE", "saniye gecti.");
                 }
             }
 
@@ -196,27 +207,44 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 
             // Add a marker in Sydney and move the camera
-            LatLng markerPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions()
-                    .position(markerPos)
-                    .title("Turkish Kebab")
-                    .snippet("Deneme"));
+//            LatLng markerPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+//             mMap.addMarker(new MarkerOptions()
+//                    .position(markerPos)
+//                    .title("Turkish Kebab")
+//                    .snippet("Deneme"));
 
             // Move the camera and zoom to the location
-            float zoomLevel = 14.0f;
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, zoomLevel));
+            //float zoomLevel = 14.0f;
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, zoomLevel));
+            Log.d( "MAP", "Zoom is zooming");
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12.0f));
         }
         catch (SecurityException se) {
-
+            se.printStackTrace();
         }
         catch (InterruptedException ie) {
-
+            ie.printStackTrace();
         }
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 }
