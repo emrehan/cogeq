@@ -1,22 +1,43 @@
 package com.cogeq.cogeqapp;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.content.Context;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.location.LocationListener;
+import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 
 import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.util.ArrayList;
@@ -24,7 +45,8 @@ import java.util.ArrayList;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class MyMapFragment extends Fragment {
+public class MyMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+
 
     private static View view;
     /**
@@ -49,6 +71,7 @@ public class MyMapFragment extends Fragment {
 
         setUpMapIfNeeded(); // For setting up the MapFragment
 
+
         return view;
     }
 
@@ -59,6 +82,9 @@ public class MyMapFragment extends Fragment {
             // Try to obtain the map from the SupportMapFragment.
             SupportMapFragment mapFragment = ((SupportMapFragment) MainActivity.fragmentManager
                     .findFragmentById(R.id.location_map));
+
+            //mapFragment.getMapAsync(this);
+
             if( mapFragment != null) {
                 mMap = mapFragment.getMap();
                 Log.d( "MAP", "Fragment is null 2");
@@ -110,5 +136,87 @@ public class MyMapFragment extends Fragment {
             if (mMap != null)
                 setUpMap();
         }
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        //Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        //startActivity(gpsOptionsIntent);
+
+        try {
+            // Zooming camera to position of the user
+            // Get location from GPS if it's available
+            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (android.location.LocationListener) this);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (android.location.LocationListener) this);
+            lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, (android.location.LocationListener) this);
+            Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (myLocation == null)
+                myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (myLocation == null)
+                myLocation = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            int MAX_TIME = 30000;
+            int counter = 0;
+            while (myLocation == null)
+            {
+                if(counter > MAX_TIME) {
+                    break;
+                }
+                else {
+                    myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (myLocation == null)
+                        myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (myLocation == null)
+                        myLocation = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                    Thread.sleep(1000);
+                    counter += 1000;
+                }
+            }
+
+            // Location wasn't found, check the next most accurate place for the current location
+            if (myLocation == null) {
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+                // Finds a provider that matches the criteria
+                String provider = lm.getBestProvider(criteria, true);
+                // Use the provider to get the last known location
+                myLocation = lm.getLastKnownLocation(provider);
+            }
+
+            LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+
+            // Add a marker in Sydney and move the camera
+            LatLng markerPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            mMap.addMarker(new MarkerOptions()
+                    .position(markerPos)
+                    .title("Turkish Kebab")
+                    .snippet("Deneme"));
+
+            // Move the camera and zoom to the location
+            float zoomLevel = 14.0f;
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, zoomLevel));
+        }
+        catch (SecurityException se) {
+
+        }
+        catch (InterruptedException ie) {
+
+        }
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
     }
 }
