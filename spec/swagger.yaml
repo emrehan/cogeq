@@ -77,6 +77,8 @@ paths:
           required: true
           type: string
           format: date-time
+		- name: access_token
+		  description: 
       responses:
         200:
           description: A travel object
@@ -158,14 +160,13 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /login:
+/login:
     parameters:
       - name: code
-        in: body
+        in: path
         description: |
         required: true
-        schema: 
-          $ref: "#/definitions/LoginBody"
+        type: string
     post: 
       summary: Foursquare login with code.
       description: |
@@ -181,7 +182,6 @@ paths:
             $ref: '#/definitions/Error'
             
 definitions:
-  ## Object
   City:
     type: object
     properties:
@@ -206,6 +206,8 @@ definitions:
         type: string
       description:
         type: string
+      picture_url:
+        type: string
       foursquare_url:
         type: string
       tripadvisor_url:
@@ -214,15 +216,9 @@ definitions:
         type: string
       googlemaps_url:
         type: string
-      latitude:
-        type: string
-      longitude:
-        type: string
   Directions:
     type: object
     required:
-     - directions_url
-     - transportation
     properties:
       directions_url:
         type: string
@@ -246,8 +242,6 @@ definitions:
           The type of the activity.
           One of the following list
           'visit', 'directions'
-      picture_url:
-        type: string
       place:
         $ref: '#/definitions/Place'
       directions:
@@ -285,7 +279,7 @@ definitions:
           The end time of the travel in RFC3339 format.
         type: string
         format: date-time
-      activities:
+	  activities:
         type: array
         items:
           $ref: '#/definitions/Activity'
@@ -320,10 +314,5 @@ definitions:
         type: string
   AccessToken:
     type: string
-  
-  ## Bodies
-  LoginBody:
-    type: object
-    properties:
-      code:
-        type: string
+   
+

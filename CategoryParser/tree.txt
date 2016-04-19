@@ -1,10 +1,431 @@
 Bosh
-	Test
-		Jazz Club
-		Gym
-	Indian Restaurant
-	Sandwich Place
-	Bowling Alley
-	Dive Bar
-	Bar
-	Seafood Restaurant
+	Arts & Entertainment
+		Music Venue
+			Jazz Club
+			Rock Club
+			Piano Bar
+		Bowling Alley
+		Performing Arts Venue
+			Theater
+			Dance Studio
+			Indie Theater
+			Opera House
+		Concert Hall
+		Art Gallery
+		Movie Theater
+			Indie Movie Theater
+			Multiplex
+		Comedy Club
+		Museum
+			Art Museum
+			Science Museum
+			Planetarium
+			History Museum
+		Arcade
+		Stadium
+			Baseball Stadium
+			Basketball Stadium
+			Hockey Arena
+			Football Stadium
+			Track Stadium
+			Soccer Stadium
+			Cricket Ground
+		Pool Hall
+		General Entertainment
+		Racetrack
+		Casino
+		Zoo
+		Theme Park
+		Aquarium
+		Historic Site
+		Public Art
+		Water Park
+	Outdoors & Recreation
+		Athletics & Sports
+			Gym / Fitness Center
+				Gym
+				Climbing Gym
+				Yoga Studio
+				Martial Arts Dojo
+				Gym Pool
+				Track
+			Golf Course
+			Skating Rink
+			Baseball Field
+			Tennis Court
+			Skate Park
+			Basketball Court
+			Soccer Field
+			Tennis
+			Volleyball Court
+			Hockey Field
+		Harbor / Marina
+		Ski Area
+			Ski Chalet
+			Ski Chairlift
+			Apres Ski Bar
+			Ski Lodge
+			Ski Trail
+		Park
+		Plaza
+		Beach
+			Surf Spot
+		Trail
+		Other Great Outdoors
+		States & Municipalities
+			Neighborhood
+			City
+		Garden
+		Lake
+		Dog Run
+		Scenic Lookout
+		Playground
+		Sculpture Garden
+		Pool
+		Island
+		Farm
+		Bridge
+		Field
+		Athletic & Sport
+		Cemetery
+		Theme Park Ride / Attraction
+		Campground
+		Lighthouse
+		Castle
+		Stables
+		Hot Spring
+		Mountain
+		Paintball Field
+		River
+		Well
+		Vineyard
+		Rock Climbing Spot
+		Volcano
+		Volcanoes
+		Stable
+	Food
+		Indian Restaurant
+		Sandwich Place
+		Seafood Restaurant
+		French Restaurant
+		Latin American Restaurant
+			Cuban Restaurant
+			Arepa Restaurant
+		Italian Restaurant
+		Japanese Restaurant
+			Sushi Restaurant
+		American Restaurant
+			New American Restaurant
+		Mexican Restaurant
+			Burrito Place
+			Taco Place
+		Deli / Bodega
+		Portuguese Restaurant
+		Dessert Shop
+			Ice Cream Shop
+			Cupcake Shop
+			Yogurt
+			Frozen Yogurt
+		Caf
+		Asian Restaurant
+			Moroccan Restaurant
+			Chinese Restaurant
+				Dim Sum Restaurant
+			Ramen /  Noodle House
+			Indonesian Restaurant
+			Filipino Restaurant
+			Mongolian Restaurant
+		Middle Eastern Restaurant
+		Pizza Place
+		Steakhouse
+		Salad Place
+		Molecular Gastronomy Restaurant
+		Diner
+		Malaysian Restaurant
+		Eastern European Restaurant
+		Restaurant
+		Vietnamese Restaurant
+		Spanish Restaurant
+			Paella Restaurant
+			Tapas Restaurant
+		Southern / Soul Food Restaurant
+		BBQ Joint
+		Donut Shop
+		Burger Joint
+		Thai Restaurant
+		German Restaurant
+		Breakfast Spot
+		Gastropub
+		Bakery
+		Afghan Restaurant
+		Falafel Restaurant
+		Hot Dog Joint
+		Greek Restaurant
+		Mediterranean Restaurant
+		Turkish Restaurant
+		Coffee Shop
+		Bagel Shop
+		Vegetarian / Vegan Restaurant
+		Fish & Chips Shop
+		South American Restaurant
+			Peruvian Restaurant
+		Fast Food Restaurant
+		Dumpling Restaurant
+		Cajun / Creole Restaurant
+		Tea Room
+		Argentinian Restaurant
+		Food Truck
+		Brazilian Restaurant
+		Wings Joint
+		Caribbean Restaurant
+		African Restaurant
+			Ethiopian Restaurant
+		Korean Restaurant
+		Food Court
+		Australian Restaurant
+		Swiss Restaurant
+		Juice Bar
+		Scandinavian Restaurant
+		Snack Place
+		Fried Chicken Joint
+		Cafeteria
+		Mac & Cheese Joint
+		Caf
+		Soup Place
+		Gluten-free Restaurant
+	Nightlife Spot
+		Bar
+			Dive Bar
+			Pub
+			Hotel Bar
+			Gay Bar
+			Cocktail Bar
+			Karaoke Bar
+			Beer Garden
+			Sports Bar
+			Wine Bar
+			Hookah Bar
+			Sake Bar
+			Whisky Bar
+		Nightclub
+		Strip Club
+		Lounge
+		Brewery
+		Speakeasy
+		Other Nightlife
+	Shop & Service
+		Jewelry Store
+		Convenience Store
+		Credit Union
+		Music Store
+		Thrift / Vintage Store
+		Record Shop
+		Food & Drink Shop
+			Grocery Store
+			Cheese Shop
+			Wine Shop
+			Gourmet Shop
+			Liquor Store
+			Farmers Market
+			Health Food Store
+			Butcher
+			Fish Market
+		Clothing Store
+			Shoe Store
+			Boutique
+			Women's Store
+			Lingerie Store
+			Accessories Store
+			Men's Store
+			Kids Store
+		Tattoo Parlor
+		Bookstore
+		Arts & Crafts Store
+		Hobby Shop
+		Sporting Goods Shop
+		Cosmetics Shop
+		Bike Shop
+		Department Store
+		Salon / Barbershop
+		Hardware Store
+		Furniture / Home Store
+		Board Shop
+		Candy Store
+		Toy / Game Store
+		Electronics Store
+		Smoke Shop
+		Gaming Cafe
+		Bank
+		Mall
+		Spa / Massage
+		Market
+		Video Store
+		Antique Shop
+		Financial or Legal Service
+		Flea Market
+		Pet Store
+		Design Studio
+		Gift Shop
+		Miscellaneous Shop
+		Video Game Store
+		Laundry Service
+		Gas Station / Garage
+		Flower Shop
+		Internet Cafe
+		Drugstore / Pharmacy
+		Automotive Shop
+		Car Wash
+		Car Dealership
+		Bridal Shop
+		Optical Shop
+		Camera Store
+		Paper / Office Supplies Store
+		Tanning Salon
+		Garden Center
+		Nail Salon
+		Photography Lab
+		Mobile Phone Shop
+		Pet Service
+		Storage Facility
+		Motorcycle Shop
+		Tailor Shop
+		Newsstand
+		Hunting Supply
+		Recycling Facility
+		Real Estate Office
+		Daycare
+		Travel Agency
+		EV Charging Station
+	Professional & Other Places
+		Office
+			Coworking Space
+			Conference Room
+			Tech Startup
+			Campaign Office
+		Event Space
+		Government Building
+			Monument / Landmark
+			City Hall
+			Capitol Building
+			Courthouse
+			Embassy / Consulate
+			Police Station
+			Fire Station
+		Building
+		School
+			High School
+			Elementary School
+			Middle School
+			Music School
+			Nursery School
+		Convention Center
+			Meeting Room
+		Spiritual Center
+			Temple
+			Church
+			Synagogue
+			Mosque
+			Shrine
+		Library
+		Medical Center
+			Hospital
+			Doctor's Office
+			Dentist's Office
+			Veterinarian
+			Emergency Room
+			Laboratory
+			Eye Doctor
+		Auditorium
+		Fair
+		Parking
+		Military Base
+		Post Office
+		Distillery
+		Winery
+		Non-Profit
+		Animal Shelter
+		Radio Station
+		Factory
+		Funeral Home
+		Voting Booth
+	Travel & Transport
+		Hotel
+			Resort
+			Hostel
+			Roof Deck
+			Motel
+			Bed & Breakfast
+			Hotel Pool
+			Boarding House
+		Bus Station
+			Bus Line
+		Pier
+		Airport
+			Airport Food Court
+			Airport Terminal
+			Airport Lounge
+			Airport Gate
+			Airport Tram
+			Plane
+		Train Station
+			Train
+			Platform
+		Light Rail
+		Boat or Ferry
+		General Travel
+		Rental Car Location
+		Road
+		Taxi
+		Bike Rental / Bike Share
+		Travel Lounge
+		Tourist Information Center
+		Rest Area
+		Moving Target
+		Ferry
+	College & University
+		College Academic Building
+			College Science Building
+			College Arts Building
+			College Engineering Building
+			College Technology Building
+			College Communications Building
+			College Math Building
+			College History Building
+		General College & University
+		Trade School
+		University
+		College Cafeteria
+		College Residence Hall
+		College Library
+		College Stadium
+			College Football Field
+			College Baseball Diamond
+			College Basketball Court
+			College Track
+			College Tennis Court
+			College Soccer Field
+			College Cricket Pitch
+		Sorority House
+		College Auditorium
+		College Lab
+		Medical School
+		Student Center
+		Community College
+		College Theater
+		College Quad
+		College Bookstore
+		College Administrative Building
+		College Hockey Rink
+		Fraternity House
+		College Rec Center
+		Law School
+		College Gym
+		College Classroom
+	Residence
+		Home (private)
+		Residential Building (Apartment / Condo)
+		Housing Development
+		Assisted Living
+	Hiking Trail
+	Subway
+	Trails

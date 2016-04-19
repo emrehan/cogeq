@@ -17,7 +17,7 @@ public class CategoryParser {
 
             String line = br.readLine();
             int count = 0;
-            while( line != null && count < 10) {
+            while( line != null ) {
                 String[] tokens = line.split( "\t");
                 String currentNode = tokens[3];
                 TreeNode childNode;
