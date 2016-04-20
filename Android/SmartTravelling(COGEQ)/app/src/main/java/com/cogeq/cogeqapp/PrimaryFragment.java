@@ -92,8 +92,8 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                                         cActivity.setName(activity.getString("name"));
                                         cActivity.setExplanation(activity.getString("description"));
                                         cActivity.setImageUrl(activity.getString("picture_url"));
-                                        //JSONObject place = activity.getJSONObject( "place");
-                                        //cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
+                                        JSONObject place = activity.getJSONObject( "place");
+                                        cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
                                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                                         cActivity.setStart(format.parse(activity.getString("from")));
                                         cActivity.setEnd(format.parse(activity.getString("to")));
@@ -120,12 +120,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                 }
             });
             queue.add(jsonObjectRequest);
-            //TODO burdan sonrası debug için, sonradan burayı sil
-            try {
-                SavedInformation.getInstance().fillActivitiesWithDebug(); //TODO remove this before deployment
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+
             m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
             m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
             setListAdapter(m_adapter);
@@ -164,8 +159,6 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         String startRfc3339 = "";
         String finishRfc3339 = "";
 
-        //TODO: connect to the server using travels path
-        //TODO: getThe response and show the travels on day dayOfTravels
         m_activities = new ArrayList<>();
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
         setListAdapter(m_adapter);

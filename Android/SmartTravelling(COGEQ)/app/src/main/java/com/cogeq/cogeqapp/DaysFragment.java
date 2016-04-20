@@ -25,9 +25,8 @@ import java.util.List;
 public class DaysFragment extends android.support.v4.app.ListFragment {
 
     private static DaysFragment instance;
-    private ArrayList<DaysObject> m_days = null;
-    private DaysAdapter m_adapter;
-    public String daysOfTravel;
+    public static ArrayList<DaysObject> m_days = null;
+    private static boolean isFilled;
 
 
     @Nullable
@@ -36,23 +35,24 @@ public class DaysFragment extends android.support.v4.app.ListFragment {
         super.onCreate(savedInstanceState);
 
         instance = this;
-        //TODO: connect to the server using travels path
-        //TODO: getThe response and show the travels on day dayOfTravels
-        m_days = new ArrayList<>();
-        if( SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
-            m_days.clear();
-            long dayDifference = SavedInformation.getDateDiff(SavedInformation.getInstance().startDate, SavedInformation.getInstance().finishDate, TimeUnit.DAYS);
-            for (int i = 0; i < dayDifference + 1; i++) {
-                Date day = SavedInformation.getInstance().startDate;
-                Date dayAfter = new Date(day.getTime() + TimeUnit.DAYS.toMillis(i));
-                m_days.add(new DaysObject( new SimpleDateFormat("dd.MM.yyyy").format(dayAfter)));
+        if( m_days == null || !isFilled) {
+            m_days = new ArrayList<>();
+            if (SavedInformation.getInstance().startDate != null && SavedInformation.getInstance().finishDate != null) {
+                m_days.clear();
+                long dayDifference = SavedInformation.getDateDiff(SavedInformation.getInstance().startDate, SavedInformation.getInstance().finishDate, TimeUnit.DAYS);
+                for (int i = 0; i < dayDifference + 1; i++) {
+                    Date day = SavedInformation.getInstance().startDate;
+                    Date dayAfter = new Date(day.getTime() + TimeUnit.DAYS.toMillis(i));
+                    m_days.add(new DaysObject(new SimpleDateFormat("dd.MM.yyyy").format(dayAfter)));
+                }
+                isFilled = true;
+            } else {
+                m_days.add(new DaysObject("Hey! You need to Select Start and Finish Date"));
+                isFilled = false;
             }
         }
-        else {
-            m_days.add(new DaysObject("Hey! You need to Select Start and Finish Date"));
-        }
-        m_adapter = new DaysAdapter(getActivity(), R.layout.row_of_days, m_days);
-        setListAdapter(m_adapter);
+        DaysAdapter adapter = new DaysAdapter(getActivity(), R.layout.row_of_days, m_days);
+        setListAdapter(adapter);
         return inflater.inflate(R.layout.days_layout, null);
     }
 

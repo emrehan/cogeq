@@ -50,7 +50,7 @@ public class PickStartDateFragment extends Fragment{
                 Date date = new Date(year - YEAR_BEGIN, monthOfYear, dayOfMonth);
                 SavedInformation.getInstance().startDate = date;
                 startDate.setText(text);
-
+                DaysFragment.m_days = null;
                 String url = getString(R.string.backendServer) + "/";
 
             }

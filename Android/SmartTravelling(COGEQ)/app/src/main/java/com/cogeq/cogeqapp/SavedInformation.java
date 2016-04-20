@@ -65,18 +65,16 @@ public class SavedInformation {
 
     public ArrayList<CogeqActivity> getActivitiesForSelectedDay() {
         ArrayList<CogeqActivity> list = new ArrayList<>();
-        Log.d( "GET_ACTIVITIES", "Get Activities Called.");
         if( currentDay != null){
             for( CogeqActivity a : cogeqActivities){
                 long dayDifference = getDateDiff( currentDay, a.getStart(), TimeUnit.DAYS);
-                Log.d( "GET_ACTIVITIES",  "Day Difference:" + dayDifference);
                 if( dayDifference == 0){
                     list.add( a);
                 }
             }
         }
         else{
-            Log.d( "GET_ACTIVITIES", "Current day is null.");
+            Log.e( "GET_ACTIVITIES", "Current day is null.");
         }
         return list;
     }

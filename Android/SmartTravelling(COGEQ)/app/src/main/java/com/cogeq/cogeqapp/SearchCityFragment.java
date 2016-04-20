@@ -109,8 +109,6 @@ public class SearchCityFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("CONNECTION", "Connection Error!");
                         error.printStackTrace();
-//                        Log.d( "CONNECTION", "City Name is  set to 'ERROR'");
-//                        SavedInformation.getInstance().city = "ERROR"; // TODO remove this because it doesnt make sense.
                     }
                 });
 
