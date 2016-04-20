@@ -56,6 +56,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
      */
 
     private static GoogleMap mMap;
+    private static LatLng position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,19 +112,20 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
         // For showing a move to my loction button
         Log.d("MAP", "Setup map is called");
         mMap.setMyLocationEnabled(true);
+        if( instance != null)
+            instance.onMapReady( mMap);
 
         //Add activities' positions
         ArrayList<CogeqActivity> activities = PrimaryFragment.getInstance().getActivities();
         for( int i = 0; i < activities.size(); i++){
             mMap.addMarker( new MarkerOptions().position( activities.get(i).getPosition()).title(activities.get(i).getName()));
+            Log.d( "LAT", "lat: " + activities.get(i).getPosition().latitude);
+            Log.d( "LONG", "long:" + activities.get(i).getPosition().longitude);
         }
 
-        if( instance != null) {
-            instance.onMapReady(mMap);
-        }
         // For zooming automatically to the Dropped PIN Location
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
-//                longitude), 12.0f));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( position, 12.0f));
+        Log.d( "MAP", "Zoom is zooming");
     }
 
     @Override
@@ -166,7 +168,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
         try {
             // Zooming camera to position of the user
             // Get location from GPS if it's available
-            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
             lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
@@ -205,6 +207,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             }
 
             LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            position = myLatLng;
 
             // Add a marker in Sydney and move the camera
 //            LatLng markerPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
@@ -216,8 +219,8 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             // Move the camera and zoom to the location
             //float zoomLevel = 14.0f;
             //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, zoomLevel));
-            Log.d( "MAP", "Zoom is zooming");
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12.0f));
+
+            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12.0f));
         }
         catch (SecurityException se) {
             se.printStackTrace();
