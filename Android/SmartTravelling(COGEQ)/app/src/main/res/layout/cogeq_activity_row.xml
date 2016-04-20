@@ -30,4 +30,16 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/crossImageView"
         android:onClick="activityOnClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="#FFFFFF"
+        android:background="#80000000"
+        android:id="@+id/dateText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/text"
+        android:layout_alignRight="@+id/crossImageView"
+        android:layout_marginRight="10dp" />
 </RelativeLayout>

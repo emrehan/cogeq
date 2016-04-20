@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by saygin on 3/12/2016.
@@ -36,8 +38,17 @@ public class CogeqActivityAdapter extends ArrayAdapter<CogeqActivity> {
             if (tt != null) {
                 tt.setText(cogeqActivity.getName());
             }
-           ImageView iv = (ImageView) v.findViewById(R.id.image);
-           Picasso.with(getContext()).load(cogeqActivity.getImageUrl()).into(iv);
+            TextView dateText = (TextView) v.findViewById( R.id.dateText);
+            if( dateText != null){
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                Date from, to;
+                from = cogeqActivity.getStart();
+                to = cogeqActivity.getEnd();
+                String dateTextStr = format.format(from) + "-" + format.format(to);
+                dateText.setText( dateTextStr );
+            }
+            ImageView iv = (ImageView) v.findViewById(R.id.image);
+            Picasso.with(getContext()).load(cogeqActivity.getImageUrl()).into(iv);
         }
         return v;
     }

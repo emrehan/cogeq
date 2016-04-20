@@ -79,8 +79,12 @@ public class MainActivity extends AppCompatActivity{
                  }
 
                  else if (menuItem.getItemId() == R.id.nav_main) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+                 }
+                 else if( menuItem.getItemId() == R.id.nav_about){
+                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                     fragmentTransaction.replace(R.id.containerView, new AboutUsFragment()).commit();
                  }
 
                 return false;

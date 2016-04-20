@@ -111,6 +111,8 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
     private static void setUpMap() {
         // For showing a move to my loction button
         Log.d("MAP", "Setup map is called");
+        mMap.clear();
+
         mMap.setMyLocationEnabled(true);
         if( instance != null)
             instance.onMapReady( mMap);
@@ -118,9 +120,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
         //Add activities' positions
         ArrayList<CogeqActivity> activities = PrimaryFragment.getInstance().getActivities();
         for( int i = 0; i < activities.size(); i++){
-            mMap.addMarker( new MarkerOptions().position( activities.get(i).getPosition()).title(activities.get(i).getName()));
-            Log.d( "LAT", "lat: " + activities.get(i).getPosition().latitude);
-            Log.d( "LONG", "long:" + activities.get(i).getPosition().longitude);
+            mMap.addMarker(new MarkerOptions().position(activities.get(i).getPosition()).title(activities.get(i).getName()));
         }
 
         // For zooming automatically to the Dropped PIN Location
@@ -162,11 +162,8 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
     public void onMapReady(GoogleMap googleMap) {
         Log.d( "MAP", "On map ready is called.");
         mMap = googleMap;
-        //Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        //startActivity(gpsOptionsIntent);
 
         try {
-            // Zooming camera to position of the user
             // Get location from GPS if it's available
             LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -209,18 +206,6 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             position = myLatLng;
 
-            // Add a marker in Sydney and move the camera
-//            LatLng markerPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-//             mMap.addMarker(new MarkerOptions()
-//                    .position(markerPos)
-//                    .title("Turkish Kebab")
-//                    .snippet("Deneme"));
-
-            // Move the camera and zoom to the location
-            //float zoomLevel = 14.0f;
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, zoomLevel));
-
-            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12.0f));
         }
         catch (SecurityException se) {
             se.printStackTrace();
