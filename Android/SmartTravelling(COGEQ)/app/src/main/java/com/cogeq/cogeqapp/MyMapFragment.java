@@ -84,6 +84,7 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             SupportMapFragment mapFragment = ((SupportMapFragment) MainActivity.fragmentManager
                     .findFragmentById(R.id.location_map));
 
+<<<<<<< Updated upstream
             if( mapFragment == null){
                 Log.e( "MAP", "Map fragment is null");
             }
@@ -91,6 +92,10 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
                 Log.d( "MAP", "Map fragment is not null" );
                 mapFragment.getMapAsync( instance);
             }
+=======
+            mapFragment.getMapAsync(this);
+
+>>>>>>> Stashed changes
             if( mapFragment != null) {
                 mMap = mapFragment.getMap();
                 Log.d( "MAP", "Fragment is null 2");
@@ -214,7 +219,6 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             ie.printStackTrace();
         }
     }
-
 
     @Override
     public void onLocationChanged(Location location) {
