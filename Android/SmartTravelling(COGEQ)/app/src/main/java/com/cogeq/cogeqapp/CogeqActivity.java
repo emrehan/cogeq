@@ -13,10 +13,10 @@ import java.util.Date;
 public class CogeqActivity {
     private String name;
     private String explanation;
-    private double durationInHours;
     private String imageUrl;
     private LatLng position;
     private Date start, end;
+    private String activityId;
 
     public CogeqActivity( String name, String exp){
         this.name = name;
@@ -74,6 +74,10 @@ public class CogeqActivity {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public String getActivityId() {
+        return activityId;
     }
     //private Location location;
 }

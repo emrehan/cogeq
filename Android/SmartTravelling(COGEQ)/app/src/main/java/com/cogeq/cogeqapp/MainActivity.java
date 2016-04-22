@@ -1,7 +1,6 @@
 package com.cogeq.cogeqapp;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +8,22 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -111,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
         if( PreferencesFragment.allPreferences == null){
             //Precaution of nullptrException
             //Somethings are terribly wrong.
+            Log.e("PREFERENCE", "Preferences are null" );
             return;
         }
         if( PreferencesFragment.allPreferences.get(pos).isSelected()){
@@ -140,20 +151,43 @@ public class MainActivity extends AppCompatActivity{
         view.findViewById(R.id.daysTick).setVisibility(View.VISIBLE);
 
         DaysFragment.getInstance().getDays().get(pos).setIsSelected(true);
-        PrimaryFragment.getInstance().populateFragment();
+        PrimaryFragment.getInstance().getTravelsForTheFirstTime();
         MyMapFragment.setUpMapIfNeeded();
     }
 
     public void activityOnClick( View view){
-        int pos = PrimaryFragment.getInstance().getListView().getPositionForView(view);
+        int pos = ((ListView) PrimaryFragment.getInstance().getView().findViewById(R.id.list)).getPositionForView(view);
+        //int pos = PrimaryFragment.getInstance().getListView().getPositionForView( view);
         if( view.getId() == R.id.activityRelativeLayout){
             Intent intent = new Intent(this, CogeqActivityViewActivity.class);
             intent.putExtra( "cogeqActivity", pos);
             startActivity(intent);
         }
         else if( view.getId() == R.id.crossImageView){
-            PrimaryFragment.getInstance().getActivities().remove(pos);
-            PrimaryFragment.getInstance().setListAdapter( PrimaryFragment.getInstance().getListAdapter());
+            CogeqActivity activity = PrimaryFragment.getInstance().getActivities().get(pos);
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            String url = getString(R.string.backendServer) + "/"+ SavedInformation.getInstance().travelId;
+            url += "/" + activity.getActivityId();
+
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("CONNECTION", response.toString());
+                            SavedInformation.getInstance().travelObject = response;
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e( "CONNECTION", "Connection error deleting Activity");
+                    VolleyLog.d("CONNECTION", "Error: " + error.getMessage());
+                }
+            });
+
+            PrimaryFragment.getInstance().populateFragment();
         }
     }
 }

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class SavedInformation {
     public String city;
     public List<CogeqActivity> cogeqActivities;
     public String accessToken;
+    public String travelId;
+    public JSONObject travelObject;
 
 
     private SavedInformation() {
@@ -45,10 +49,10 @@ public class SavedInformation {
         SavedInformation.getInstance().cogeqActivities.get(1).setPosition( new LatLng(39.8563, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(2).setPosition( new LatLng(39.564, 32.8403));
         SavedInformation.getInstance().cogeqActivities.get(3).setPosition( new LatLng(39.65465, 32.8403));
-        SavedInformation.getInstance().cogeqActivities.get(0).setStart(format.parse("2016-04-17T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-17T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(2).setStart( format.parse( "2016-04-18T00:00:00"));
-        SavedInformation.getInstance().cogeqActivities.get(3).setStart( format.parse( "2016-04-19T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(0).setStart(format.parse("2016-04-23T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(1).setStart( format.parse( "2016-04-23T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(2).setStart( format.parse( "2016-04-23T00:00:00"));
+        SavedInformation.getInstance().cogeqActivities.get(3).setStart( format.parse( "2016-04-23T00:00:00"));
     }
 
     public static SavedInformation getInstance(){

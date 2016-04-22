@@ -13,16 +13,36 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by saygin on 3/12/2016.
  */
 public class CogeqActivityAdapter extends ArrayAdapter<CogeqActivity> {
     private ArrayList<CogeqActivity> items;
+    final int INVALID_ID = -1;
+
+    HashMap<CogeqActivity, Integer> mIdMap = new HashMap<CogeqActivity, Integer>();
 
     public CogeqActivityAdapter(Context context, int textViewResourceId, ArrayList<CogeqActivity> items) {
         super(context, textViewResourceId, items);
         this.items = items;
+        for (int i = 0; i < items.size(); ++i) {
+            mIdMap.put(items.get(i), i);
+        }
+    }
+    @Override
+    public long getItemId(int position) {
+        if (position < 0 || position >= mIdMap.size()) {
+            return INVALID_ID;
+        }
+        CogeqActivity item = getItem(position);
+        return mIdMap.get(item);
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
     }
 
     @Override
