@@ -79,5 +79,9 @@ public class CogeqActivity {
     public String getActivityId() {
         return activityId;
     }
+
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
+    }
     //private Location location;
 }

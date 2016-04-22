@@ -33,13 +33,11 @@ import java.util.ArrayList;
 /**
  * Created by Ratan on 7/29/2015.
  */
-//public class PrimaryFragment extends android.support.v4.app.ListFragment {
-public class PrimaryFragment extends Fragment {
+public class PrimaryFragment extends android.support.v4.app.ListFragment {
+//public class PrimaryFragment extends Fragment {
     private static PrimaryFragment instance;
-    private ProgressDialog m_ProgressDialog = null;
     private ArrayList<CogeqActivity> m_activities = null;
     private CogeqActivityAdapter m_adapter;
-    public int dayOfTravels = 1;
 
     @Override
     public void onStart(){
@@ -50,14 +48,15 @@ public class PrimaryFragment extends Fragment {
 
     public void populateFragment(){
         SavedInformation.getInstance().cogeqActivities = new ArrayList<>();
+        Log.d("INFO", "Previous Cogeq Activities are deleted.");
         JSONObject travelsObject = SavedInformation.getInstance().travelObject;
         if( travelsObject == null){
             Log.e( "POPULATE_FRAGMENT" , "Travel Object is null!!");
+            return;
         }
-        Log.d("INFO", "Previous Cogeq Activities are deleted.");
         try {
             if( travelsObject.has( "Error") ){
-                Log.e( "JSON", "Error is returned.");
+                Log.e("JSON", "Error is returned.");
                 SavedInformation.getInstance().fillActivitiesWithDebug();
             }
             else{
@@ -66,6 +65,7 @@ public class PrimaryFragment extends Fragment {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject activity = array.getJSONObject(i);
                     CogeqActivity cActivity = new CogeqActivity();
+                    cActivity.setActivityId( activity.getString("id"));
                     cActivity.setName(activity.getString("name"));
                     cActivity.setExplanation(activity.getString("description"));
                     cActivity.setImageUrl(activity.getString("picture_url"));
@@ -75,6 +75,7 @@ public class PrimaryFragment extends Fragment {
                     cActivity.setStart(format.parse(activity.getString("from")));
                     cActivity.setEnd(format.parse(activity.getString("to")));
                     SavedInformation.getInstance().cogeqActivities.add(cActivity);
+                    Log.d( "ACT", "Activity " + cActivity.getName() + " is processed.");
                 }
             }
         } catch (JSONException e) {
@@ -84,12 +85,10 @@ public class PrimaryFragment extends Fragment {
             e.printStackTrace();
         }
         m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
+        Log.d( "ACTIVITIES", "Size of m_activities: " + m_activities.size());
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-        DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
-        lv.setCheeseList(m_activities);
-        lv.setAdapter(m_adapter);
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-       // setListAdapter(m_adapter);
+        setListAdapter(m_adapter);
+        m_adapter.notifyDataSetChanged();
     }
     public void getTravelsForTheFirstTime(){
         String startRfc3339 = "";
@@ -102,7 +101,7 @@ public class PrimaryFragment extends Fragment {
             finishRfc3339 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(SavedInformation.getInstance().finishDate);
         }
         String city = SavedInformation.getInstance().city;
-        if( city != "" && startRfc3339 != "" && finishRfc3339 != "") {
+        if( !city.equals( "") && !startRfc3339.equals( "") && !finishRfc3339.equals( "")) {
             String url = getString(R.string.backendServer) + "/travels";
             url += "?";
             try {
@@ -135,11 +134,11 @@ public class PrimaryFragment extends Fragment {
 
             m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
             m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
-            lv.setCheeseList(m_activities);
-            lv.setAdapter(m_adapter);
-            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            //setListAdapter(m_adapter);
+//            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
+//            lv.setCheeseList(m_activities);
+//            lv.setAdapter(m_adapter);
+//            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            setListAdapter(m_adapter);
         }
         else {
             boolean startSelected, endSelected, citySelected;
@@ -161,11 +160,11 @@ public class PrimaryFragment extends Fragment {
             list.add( "" + endSelected);
             list.add( "" + citySelected);
             ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, startSelected, endSelected, citySelected, list);
-            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
-            lv.setCheeseList(m_activities);
-            lv.setAdapter(m_adapter);
-            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//            setListAdapter(adapter);
+//            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
+//            lv.setCheeseList(m_activities);
+//            lv.setAdapter(m_adapter);
+//            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            setListAdapter(adapter);
             Log.d( "ADAPTER", "emptyList adapter is set.");
         }
 
@@ -182,12 +181,12 @@ public class PrimaryFragment extends Fragment {
         m_activities = new ArrayList<>();
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
 
-//        setListAdapter(m_adapter);
+        setListAdapter(m_adapter);
         View view = inflater.inflate(R.layout.primary_layout, container, false);
-        DynamicListView lv = (DynamicListView)view.findViewById(R.id.list);
-        lv.setCheeseList(m_activities);
-        lv.setAdapter(m_adapter);
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//        DynamicListView lv = (DynamicListView)view.findViewById(R.id.list);
+//        lv.setCheeseList(m_activities);
+//        lv.setAdapter(m_adapter);
+//        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         return view;
     }
     public static PrimaryFragment getInstance(){

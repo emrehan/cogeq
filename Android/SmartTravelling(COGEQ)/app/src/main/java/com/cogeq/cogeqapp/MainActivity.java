@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void activityOnClick( View view){
-        int pos = ((ListView) PrimaryFragment.getInstance().getView().findViewById(R.id.list)).getPositionForView(view);
-        //int pos = PrimaryFragment.getInstance().getListView().getPositionForView( view);
+        //int pos = ((ListView) PrimaryFragment.getInstance().getView().findViewById(R.id.list)).getPositionForView(view);
+        int pos = PrimaryFragment.getInstance().getListView().getPositionForView( view);
         if( view.getId() == R.id.activityRelativeLayout){
             Intent intent = new Intent(this, CogeqActivityViewActivity.class);
             intent.putExtra( "cogeqActivity", pos);
@@ -166,9 +166,9 @@ public class MainActivity extends AppCompatActivity{
         else if( view.getId() == R.id.crossImageView){
             CogeqActivity activity = PrimaryFragment.getInstance().getActivities().get(pos);
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-            String url = getString(R.string.backendServer) + "/"+ SavedInformation.getInstance().travelId;
+            String url = getString(R.string.backendServer) + "/travels/"+ SavedInformation.getInstance().travelId;
             url += "/" + activity.getActivityId();
-
+            Log.d( "CONNECTION", "URL:" + url );
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
                     new Response.Listener<JSONObject>() {
@@ -176,18 +176,18 @@ public class MainActivity extends AppCompatActivity{
                         public void onResponse(JSONObject response) {
                             Log.d("CONNECTION", response.toString());
                             SavedInformation.getInstance().travelObject = response;
-
+                            PrimaryFragment.getInstance().populateFragment();
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e( "CONNECTION", "Connection error deleting Activity");
+                    Log.e("CONNECTION", "Connection error deleting Activity");
                     VolleyLog.d("CONNECTION", "Error: " + error.getMessage());
+
                 }
             });
-
-            PrimaryFragment.getInstance().populateFragment();
+            queue.add(jsonObjectRequest);
         }
     }
 }

@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLayout">
 
-    <com.cogeq.cogeqapp.DynamicListView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list">
+        android:id="@android:id/list">
 
-    </com.cogeq.cogeqapp.DynamicListView>
+    </ListView>
 </RelativeLayout>
