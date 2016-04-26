@@ -9,6 +9,7 @@ from scipy.sparse import csc_matrix
 import os
 dirs = [d for d in os.listdir('/Users/cangiracoglu/Desktop/checkins') if os.path.join('/Users/cangiracoglu/Desktop/checkins',d) ]
 
+countX = 0
 for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins', topdown=False):
     for name in files:
         if name.endswith('txt'):
@@ -50,25 +51,24 @@ for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins', topdown
                                 matrix[arr[0]][j] += 1
 
             res = []
-            countX = 0
+
             for i in matrix:
                 res.append(matrix[i])
 
-                countX += 1
+            M = len(res)
+            N = len(res[0])
 
+            if (M > N):
+                temp = np.zeros([M, M])
+            elif (N > M):
+                temp = np.zeros([N, N])
 
+            if (M != N):
+                for i in range(0,len(res)):
+                    for j in range(0,len(res[0])):
+                        temp[i][j] = res[i][j]
 
-
-
-
-
-
-            # Input to HITS algorithm is consistency matrix where entry (i,j) indicates \
-            # edge from i->j
-            # Consistency Matrix PhiMat is assumed to be a sparse matrix in CSC format
-
-
-
+                res = temp
 
             # Converting dense matrix to sparse matrix
             PhiMat = csc_matrix(res)
@@ -80,6 +80,10 @@ for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins', topdown
             # auth is a vector of authority score of dimension Mx1
             # hub is a vector of hub score of dimension Mx1
             M, N = PhiMat.shape
+
+
+
+
 
             # Normalizing the authorities and hubs vector by their L2 norm
             auth0 = (1.0/sqrt(M)) * np.ones([M, 1])
@@ -93,6 +97,8 @@ for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins', topdown
             hubs1 = (1.0/norm(hubs1, 2))*hubs1
 
             # Calculating the hub and authority vectors until convergence
+
+
             while((norm(auth1-auth0, 2) > epsilon)or(norm(hubs1-hubs0, 2) > epsilon)):
                 auth0 = auth1
                 hubs0 = hubs1
