@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void activityOnClick( View view){
-        //int pos = ((ListView) PrimaryFragment.getInstance().getView().findViewById(R.id.list)).getPositionForView(view);
-        int pos = PrimaryFragment.getInstance().getListView().getPositionForView( view);
+        int pos = ((ListView) PrimaryFragment.getInstance().getView().findViewById(R.id.list)).getPositionForView(view);
+        //int pos = PrimaryFragment.getInstance().getListView().getPositionForView( view);
         if( view.getId() == R.id.activityRelativeLayout){
             Intent intent = new Intent(this, CogeqActivityViewActivity.class);
             intent.putExtra( "cogeqActivity", pos);

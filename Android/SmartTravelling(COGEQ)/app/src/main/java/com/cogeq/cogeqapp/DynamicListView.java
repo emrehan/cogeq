@@ -30,6 +30,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -111,6 +112,7 @@ public class DynamicListView extends ListView {
     }
 
     public void init(Context context) {
+        Log.e( "INIT", "Init is called.");
         setOnItemLongClickListener(mOnItemLongClickListener);
         setOnScrollListener(mScrollListener);
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -142,6 +144,8 @@ public class DynamicListView extends ListView {
                 }
             };
 
+    public static final int MAX_BITMAP_BORDER = 2048;
+
     /**
      * Creates the hover cell with the appropriate bitmap and of appropriate
      * size. The hover cell's BitmapDrawable is drawn on top of the bitmap every
@@ -154,6 +158,12 @@ public class DynamicListView extends ListView {
         int top = v.getTop();
         int left = v.getLeft();
 
+        if( h > MAX_BITMAP_BORDER){
+            h = MAX_BITMAP_BORDER;
+        }
+        if( w > MAX_BITMAP_BORDER){
+            w = MAX_BITMAP_BORDER;
+        }
         Bitmap b = getBitmapWithBorder(v);
 
         BitmapDrawable drawable = new BitmapDrawable(getResources(), b);
@@ -186,10 +196,21 @@ public class DynamicListView extends ListView {
 
     /** Returns a bitmap showing a screenshot of the view passed in. */
     private Bitmap getBitmapFromView(View v) {
-        Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas (bitmap);
+        int h,w;
+        w = v.getWidth();
+        h = v.getHeight();
+        if( w > MAX_BITMAP_BORDER){
+            w = MAX_BITMAP_BORDER;
+        }
+        if( h > MAX_BITMAP_BORDER){
+            h = MAX_BITMAP_BORDER;
+        }
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, MAX_BITMAP_BORDER, MAX_BITMAP_BORDER, false);
+        Canvas canvas = new Canvas (newBitmap);
         v.draw(canvas);
-        return bitmap;
+
+        return newBitmap;
     }
 
     /**

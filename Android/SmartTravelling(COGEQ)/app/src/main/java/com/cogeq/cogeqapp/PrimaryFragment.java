@@ -33,8 +33,8 @@ import java.util.ArrayList;
 /**
  * Created by Ratan on 7/29/2015.
  */
-public class PrimaryFragment extends android.support.v4.app.ListFragment {
-//public class PrimaryFragment extends Fragment {
+//public class PrimaryFragment extends android.support.v4.app.ListFragment {
+public class PrimaryFragment extends Fragment {
     private static PrimaryFragment instance;
     private ArrayList<CogeqActivity> m_activities = null;
     private CogeqActivityAdapter m_adapter;
@@ -87,7 +87,11 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
         Log.d( "ACTIVITIES", "Size of m_activities: " + m_activities.size());
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-        setListAdapter(m_adapter);
+        DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
+        lv.setCheeseList(m_activities);
+        lv.setAdapter(m_adapter);
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//        setListAdapter(m_adapter);
         m_adapter.notifyDataSetChanged();
     }
     public void getTravelsForTheFirstTime(){
@@ -134,11 +138,11 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
 
             m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
             m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-//            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
-//            lv.setCheeseList(m_activities);
-//            lv.setAdapter(m_adapter);
-//            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            setListAdapter(m_adapter);
+            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
+            lv.setCheeseList(m_activities);
+            lv.setAdapter(m_adapter);
+            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//            setListAdapter(m_adapter);
         }
         else {
             boolean startSelected, endSelected, citySelected;
@@ -160,11 +164,11 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             list.add( "" + endSelected);
             list.add( "" + citySelected);
             ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, startSelected, endSelected, citySelected, list);
-//            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
-//            lv.setCheeseList(m_activities);
-//            lv.setAdapter(m_adapter);
-//            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            setListAdapter(adapter);
+            DynamicListView lv = (DynamicListView)getView().findViewById(R.id.list);
+            lv.setCheeseList(m_activities);
+            lv.setAdapter(m_adapter);
+            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//            setListAdapter(adapter);
             Log.d( "ADAPTER", "emptyList adapter is set.");
         }
 
@@ -181,12 +185,13 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         m_activities = new ArrayList<>();
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
 
-        setListAdapter(m_adapter);
+
         View view = inflater.inflate(R.layout.primary_layout, container, false);
-//        DynamicListView lv = (DynamicListView)view.findViewById(R.id.list);
-//        lv.setCheeseList(m_activities);
-//        lv.setAdapter(m_adapter);
-//        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        DynamicListView lv = (DynamicListView)view.findViewById(R.id.list);
+        lv.setCheeseList(m_activities);
+        lv.setAdapter(m_adapter);
+        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//        setListAdapter(m_adapter);
         return view;
     }
     public static PrimaryFragment getInstance(){
