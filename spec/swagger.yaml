@@ -180,6 +180,25 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+/preference:
+  parameters:
+    -name: id
+    in: path
+    description: |
+    id of the preference | 0: beach | 1: backpack | 2: museum | 3: economy | 4: nature | 5: shopping | 6: coffee | 7: drinking| 8: dessert
+    required: true
+    type: integer
+    -name: isSelected
+    in: path
+    description: if this is true the preference is selected if this is false it is deselected.
+  post:
+  summary: preference selection
+  responses:
+    200:
+	  description: acknowledgement
+
+
+		
             
 definitions:
   City:

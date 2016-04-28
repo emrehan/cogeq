@@ -4,9 +4,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -15,31 +13,15 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.content.Context;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.LocationListener;
-import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 
-import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
+
 import java.util.ArrayList;
 
 /**
@@ -84,18 +66,15 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             SupportMapFragment mapFragment = ((SupportMapFragment) MainActivity.fragmentManager
                     .findFragmentById(R.id.location_map));
 
-<<<<<<< Updated upstream
             if( mapFragment == null){
                 Log.e( "MAP", "Map fragment is null");
             }
-            else{
-                Log.d( "MAP", "Map fragment is not null" );
-                mapFragment.getMapAsync( instance);
+            else {
+                Log.d("MAP", "Map fragment is not null");
+                mapFragment.getMapAsync(instance);
             }
-=======
-            mapFragment.getMapAsync(this);
+            //mapFragment.getMapAsync(this);
 
->>>>>>> Stashed changes
             if( mapFragment != null) {
                 mMap = mapFragment.getMap();
                 Log.d( "MAP", "Fragment is null 2");
