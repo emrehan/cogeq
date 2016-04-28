@@ -81,10 +81,6 @@ for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins', topdown
             # hub is a vector of hub score of dimension Mx1
             M, N = PhiMat.shape
 
-
-
-
-
             # Normalizing the authorities and hubs vector by their L2 norm
             auth0 = (1.0/sqrt(M)) * np.ones([M, 1])
             hubs0 = (1.0/sqrt(M)) * np.ones([M, 1])
