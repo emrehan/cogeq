@@ -19,7 +19,7 @@ for dir in dirs:
                     for line in lines:
                         tokens = line.split( "\t")
                         if int(tokens[0]) == userId:
-                            ++countX
+                            countX += 1
                             if( dict.has_key(categoryName)):
                                 dict[categoryName] += 1
                             else:
