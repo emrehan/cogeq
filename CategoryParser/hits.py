@@ -7,10 +7,10 @@ import numpy as np
 from scipy.linalg import norm
 from scipy.sparse import csc_matrix
 import os
-dirs = [d for d in os.listdir('C:/checkins') if os.path.join('C:/checkins',d) ]
+dirs = [d for d in os.listdir('/Users/cangiracoglu/Desktop/checkins2') if os.path.join('/Users/cangiracoglu/Desktop/checkins2',d) ]
 
 countX = 0
-for root, dirs, files in os.walk('C:/checkins', topdown=False):
+for root, dirs, files in os.walk('/Users/cangiracoglu/Desktop/checkins2', topdown=False):
     for name in files:
         if name.endswith('txt'):
             print(os.path.join(root, name))
