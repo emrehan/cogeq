@@ -14,7 +14,7 @@ for dir in dirs:
                 if name.endswith('txt'):
                     f = open(os.path.join(root, name), "r")
                     lines = f.readlines()
-                    path = root.split( "\\")
+                    path = root.split( "/")
                     categoryName = path[ len(path)-1]
                     for line in lines:
                         tokens = line.split( "\t")
