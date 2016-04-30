@@ -20,12 +20,12 @@ for dir in dirs:
                         tokens = line.split( "\t")
                         if int(tokens[0]) == userId:
                             countX += 1
-                            if( dict.has_key(categoryName)):
+                            if categoryName in dict:
                                 dict[categoryName] += 1
                             else:
                                 dict[categoryName] = 1
 
-for key, value in dict.iteritems():
+for key, value in dict.items():
     dict[key] = float( value) / countX
 
 

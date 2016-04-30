@@ -1,5 +1,4 @@
 import os
-from sets import Set
 import re
 import json
 
@@ -18,7 +17,7 @@ class Node(object):
         child.parent = self
 
     def traverse4IDF(self, tfDictionary):
-        if tfDictionary.has_key(self.title):
+        if self.title in tfDictionary:
             self.idf *= tfDictionary[self.title]
         else:
             self.idf *= 0
@@ -54,7 +53,7 @@ class Inserter(object):
             self.node.parent.add(newNode)
         else:
             parent = self.node.parent
-            for i in xrange(0, self.depth - depth):
+            for i in range(0, self.depth - depth):
                 parent = parent.parent
             parent.add(newNode)
             self.depth = depth
@@ -82,7 +81,7 @@ with open(r"tree.txt", 'r') as f:
         tabs = re.match('\t*', line).group(0).count('\t')
         title = line[tabs:]
 
-        if d.has_key(title):
+        if title in d:
             inserter(title, d[title], tabs)
         else:
             inserter(title, 0, tabs)
@@ -100,12 +99,12 @@ with open('response.json') as data_file:
         categories = item["venue"]["categories"]
         for category in categories:
             categoryName = category["name"]
-            if tfDictionary.has_key(categoryName):
+            if categoryName in tfDictionary:
                 tfDictionary[categoryName] += 1
             else:
                 tfDictionary[categoryName] = 1
 
-    for key, value in tfDictionary.iteritems():
+    for key, value in tfDictionary.items():
         tfDictionary[key] = float(value) / count
 
 tree.traverse4IDF(tfDictionary)
@@ -113,12 +112,12 @@ tree.traverse4Aggregation()
 
 # candidate selection
 
-dirs = [d for d in os.listdir('/Users/cangiracoglu/Desktop/checkins') if os.path.join('/Users/cangiracoglu/Desktop/checkins',d) ]
+dirs = [d for d in os.listdir('C:/checkins') if os.path.join('C:/checkins',d) ]
 
 cityName = "Ankara"
 userId = 95222
-users = Set([])
-venues = Set([])
+users = set()
+venues = set()
 countX = 0
 dict = {}
 for dir in dirs:
