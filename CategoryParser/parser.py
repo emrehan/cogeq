@@ -1,7 +1,10 @@
+import os
+from sets import Set
 import re
 import json
 
 # *** Tree representation ***
+level = [[],[],[],[],[]]
 
 class Node(object):
     def __init__(self, title, idf):
@@ -22,6 +25,19 @@ class Node(object):
 
         for child in self.children:
             child.traverse4IDF(tfDictionary)
+
+    def traverse4Aggregation(self):
+        sum = 0.0
+        for child in self.children:
+            child.traverse4Aggregation()
+            sum += child.idf
+
+    def traverse4LevelSeperation(self, depth):
+        level[depth].append(self)
+        for child in self.children:
+            child.traverse4LevelSeperation(depth+1)
+
+
 
 # *** Node insertion logic ***
 class Inserter(object):
@@ -71,6 +87,8 @@ with open(r"tree.txt", 'r') as f:
         else:
             inserter(title, 0, tabs)
 
+# tf values and tree traversals
+
 tfDictionary = {}
 
 with open('response.json') as data_file:
@@ -91,6 +109,46 @@ with open('response.json') as data_file:
         tfDictionary[key] = float(value) / count
 
 tree.traverse4IDF(tfDictionary)
+tree.traverse4Aggregation()
 
-j=354
+# candidate selection
+
+dirs = [d for d in os.listdir('/Users/cangiracoglu/Desktop/checkins') if os.path.join('/Users/cangiracoglu/Desktop/checkins',d) ]
+
+cityName = "Ankara"
+userId = 95222
+users = Set([])
+venues = Set([])
+countX = 0
+dict = {}
+for dir in dirs:
+    if dir == cityName:
+        for root, dirs, files in os.walk( '/Users/cangiracoglu/Desktop/checkins/' + dir, topdown=False):
+            for name in files:
+                if name.endswith('txt'):
+                    f = open(os.path.join(root, name), "r")
+                    lines = f.readlines()
+                    path = root.split( "/")
+                    categoryName = path[ len(path)-1]
+                    for line in lines:
+                        tokens = line.split( "\t")
+                        users.add(tokens[0])
+                        venues.add(tokens[1])
+
+tree.traverse4LevelSeperation(0)
+
+for x in range(0, 4):
+    minCategory = 10000
+    for category in level[4-x]:
+        if category.idf < minCategory and category.idf != 0:
+            minCategory = category.idf
+
+    for category in level[4 - x]:
+        k = category.idf / minCategory
+        
+
+
+
+
+j=35
 
