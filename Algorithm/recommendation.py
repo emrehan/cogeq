@@ -2,37 +2,80 @@
 import numpy
 from scipy import spatial
 import operator
+import json
 
 prePath = "/home/remzican/Documents/checkins/"
 cityName = "London/"
 expertListFileName = "experts"
 fileSuffix = ".csv"
+categoriesFileName = "categories"
 delimiter = ","
 
+categoriesFilePath = prePath + categoriesFileName + fileSuffix
 expertsFilePath = prePath + cityName + expertListFileName + fileSuffix
 expertCheckinsPrefix = prePath + cityName
 
+#Create TF-IDF vector of the user
+tfDictionary = {}
 
-#Turkish Restaurant,Restaurant,Museum
+with open(prePath + 'response.json') as data_file:
+    data = json.load(data_file)
+    count = data["response"]["response"]["checkins"]["count"]
+    items = data["response"]["response"]["checkins"]["items"]
 
-#TODO Find category-checkin count vector of the user
-userCategoryCheckinCounts = [26, 77, 40]
+    for item in items:
+        categories = item["venue"]["categories"]
+        for category in categories:
+            categoryName = category["name"]
+            if categoryName in tfDictionary:
+                tfDictionary[categoryName] += 1
+            else:
+                tfDictionary[categoryName] = 1
 
-#Iterate through experts
-expertsFile = open(expertsFilePath, "r")
-lines = expertsFile.readlines()
-cosineSimilarities = {}
+    for key, value in tfDictionary.items():
+        tfDictionary[key] = float(value) / count
+
+categoriesFile = open(categoriesFilePath, "r")
+lines = categoriesFile.readlines()
+userCategoryTFIDF = []
 
 for line in lines:
     tokens = line.split(delimiter)
-    expertCategoryCheckinCounts = tokens[1:]
-    expertCategoryCheckinCounts = [int(numeric_string) for numeric_string in expertCategoryCheckinCounts]
-    cosineSimilarity = 1 - spatial.distance.cosine(userCategoryCheckinCounts, expertCategoryCheckinCounts)
-    cosineSimilarities[tokens[0]] = cosineSimilarity
+    categoryName = tokens[0]
 
+    if categoryName in tfDictionary:
+        categoryTF = tfDictionary[categoryName]
+    else:
+        categoryTF = 0
+
+    categoryCheckinCount = int(tokens[1])
+    categoryIDF = 1.0/categoryCheckinCount
+    userCategoryTFIDF.append(categoryTF*categoryIDF)
+
+#Iterate through experts to find similarities
+expertsFile = open(expertsFilePath, "r")
+lines = expertsFile.readlines()
+expertCosineSimilarities = {}
+
+for line in lines:
+    tokens = line.split(delimiter)
+    #TODO after Emrehan's change
+    expertCategoryTFIDF = tokens[1:]
+    expertCategoryTFIDF = [int(numeric_string) for numeric_string in expertCategoryTFIDF]
+    cosineSimilarity = 1 - spatial.distance.cosine(userCategoryTFIDF, expertCategoryTFIDF)
+    expertCosineSimilarities[tokens[0]] = cosineSimilarity
+
+sortedExpertCosineSimilarities = sorted(expertCosineSimilarities.items(), key=operator.itemgetter(1))
+sortedExpertCosineSimilarities.reverse()
 estimatedRankings = {}
+
+#TODO decision need?
+selectionRatio = 1
+numberOfExperts = len(sortedExpertCosineSimilarities)
+numberOfSelectedExperts = max(1,int(numberOfExperts/selectionRatio))
+
 #Find estimated rankings
-for expert, similarity in cosineSimilarities.items():
+for expert, similarity in sortedExpertCosineSimilarities[:numberOfSelectedExperts]:
     expertCheckinsPath = expertCheckinsPrefix + expert + fileSuffix
     checkinsFile = open(expertCheckinsPath, "r")
     lines = checkinsFile.readlines()
@@ -41,11 +84,11 @@ for expert, similarity in cosineSimilarities.items():
         tokens = line.split(delimiter)
         venueId = tokens[0]
         venueCheckinCount = float(tokens[1])
-        estimatedRanking = cosineSimilarities[expert] * venueCheckinCount
+        estimatedRanking = similarity * venueCheckinCount
 
         #TODO Need decision?
         if venueId in estimatedRankings:
-            estimatedRankings[venueId] = max(estimatedRankings[venueId], estimatedRanking)
+            estimatedRankings[venueId] += estimatedRanking
         else:
             estimatedRankings[venueId] = estimatedRanking
 
