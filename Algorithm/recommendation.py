@@ -6,17 +6,19 @@ import json
 
 prePath = "/home/remzican/Documents/checkins/"
 cityName = "London/"
-expertListFileName = "experts"
-fileSuffix = ".csv"
-categoriesFileName = "categories"
+checkinsFolderName = "expert_checkins/"
+expertsCategoryTFFileName = "expert_categories.csv"
+expertIDsFileName = "expert_ids.txt"
+categoriesFileName = "categories.csv"
 delimiter = ","
 
-categoriesFilePath = prePath + categoriesFileName + fileSuffix
-expertsFilePath = prePath + cityName + expertListFileName + fileSuffix
-expertCheckinsPrefix = prePath + cityName
+categoriesFilePath = prePath + categoriesFileName
+expertsFilePath = prePath + cityName + expertsCategoryTFFileName
+expertIDsFilePath = prePath + cityName + expertIDsFileName
+expertCheckinsPrefix = prePath + cityName + checkinsFolderName
 
 #Create TF-IDF vector of the user
-tfDictionary = {}
+userCategoryTFDictionary = {}
 
 with open(prePath + 'response.json') as data_file:
     data = json.load(data_file)
@@ -27,56 +29,51 @@ with open(prePath + 'response.json') as data_file:
         categories = item["venue"]["categories"]
         for category in categories:
             categoryName = category["name"]
-            if categoryName in tfDictionary:
-                tfDictionary[categoryName] += 1
+            if categoryName in userCategoryTFDictionary:
+                userCategoryTFDictionary[categoryName] += 1
             else:
-                tfDictionary[categoryName] = 1
+                userCategoryTFDictionary[categoryName] = 1
 
-    for key, value in tfDictionary.items():
-        tfDictionary[key] = float(value) / count
+    for key, value in userCategoryTFDictionary.items():
+        userCategoryTFDictionary[key] = float(value) / count
 
 categoriesFile = open(categoriesFilePath, "r")
-lines = categoriesFile.readlines()
-userCategoryTFIDF = []
+categoryLines = categoriesFile.readlines()
+userCategoryTFIDFs = []
 
-for line in lines:
+for line in categoryLines:
     tokens = line.split(delimiter)
     categoryName = tokens[0]
 
-    if categoryName in tfDictionary:
-        categoryTF = tfDictionary[categoryName]
+    if categoryName in userCategoryTFDictionary:
+        categoryTF = userCategoryTFDictionary[categoryName]
     else:
         categoryTF = 0
 
     categoryCheckinCount = int(tokens[1])
     categoryIDF = 1.0/categoryCheckinCount
-    userCategoryTFIDF.append(categoryTF*categoryIDF)
+    userCategoryTFIDFs.append(categoryTF * categoryIDF)
 
 #Iterate through experts to find similarities
 expertsFile = open(expertsFilePath, "r")
-lines = expertsFile.readlines()
+expertIDsFile = open(expertIDsFilePath, "r")
+expertsFileLines = expertsFile.readlines()
+IDs = expertIDsFile.readlines()
 expertCosineSimilarities = {}
 
-for line in lines:
-    tokens = line.split(delimiter)
-    #TODO after Emrehan's change
-    expertCategoryTFIDF = tokens[1:]
-    expertCategoryTFIDF = [int(numeric_string) for numeric_string in expertCategoryTFIDF]
-    cosineSimilarity = 1 - spatial.distance.cosine(userCategoryTFIDF, expertCategoryTFIDF)
-    expertCosineSimilarities[tokens[0]] = cosineSimilarity
+for index, line in enumerate(expertsFileLines):
+    expertCategoryTFs = line.split(delimiter)
+    categoryCheckinCount = float(categoryLines[index].split(delimiter)[1])
+    expertCategoryTFIDFs = [float(numeric_string)/categoryCheckinCount for numeric_string in expertCategoryTFs]
+    cosineSimilarity = 1 - spatial.distance.cosine(userCategoryTFIDFs, expertCategoryTFIDFs)
+    if cosineSimilarity > 0:
+        expertID = IDs[index].split('\n')[0]
+        expertCosineSimilarities[expertID] = cosineSimilarity
 
-sortedExpertCosineSimilarities = sorted(expertCosineSimilarities.items(), key=operator.itemgetter(1))
-sortedExpertCosineSimilarities.reverse()
 estimatedRankings = {}
-
-#TODO decision need?
-selectionRatio = 1
-numberOfExperts = len(sortedExpertCosineSimilarities)
-numberOfSelectedExperts = max(1,int(numberOfExperts/selectionRatio))
-
 #Find estimated rankings
-for expert, similarity in sortedExpertCosineSimilarities[:numberOfSelectedExperts]:
-    expertCheckinsPath = expertCheckinsPrefix + expert + fileSuffix
+for expert, similarity in expertCosineSimilarities.items():
+    expertCheckinsPath = expertCheckinsPrefix + expert + ".csv"
     checkinsFile = open(expertCheckinsPath, "r")
     lines = checkinsFile.readlines()
 
@@ -95,4 +92,5 @@ for expert, similarity in sortedExpertCosineSimilarities[:numberOfSelectedExpert
 sortedEstimatedRankings = sorted(estimatedRankings.items(), key=operator.itemgetter(1))
 sortedEstimatedRankings.reverse()
 
-print(sortedEstimatedRankings)
+
+print(list(map(lambda e: e[0], sortedEstimatedRankings)))
