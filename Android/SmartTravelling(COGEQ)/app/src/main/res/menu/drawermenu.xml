@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Tell Us What You Love"
-          android:id="@+id/nav_love"
-          android:icon="@drawable/love"/>
 
     <item android:title="Pick Start Date"
           android:id="@+id/start_date"
@@ -19,10 +16,6 @@
 
     <item android:title="Others">
         <menu>
-            <item
-                android:title="Settings"
-                android:icon="@drawable/settings"
-                android:id="@+id/nav_settings"/>
             <item
                 android:title="About Us"
                 android:icon="@drawable/about"

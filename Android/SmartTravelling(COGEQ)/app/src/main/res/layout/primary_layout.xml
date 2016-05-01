@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLayout">
 
-    <!--<ListView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@android:id/list">-->
-<!--</ListView>-->
-    <com.cogeq.cogeqapp.DynamicListView
-        android:layout_width="match_parent"
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list">
-    </com.cogeq.cogeqapp.DynamicListView>
+        android:id="@android:id/list">
+    </ListView>
+    <!--<com.cogeq.cogeqapp.DynamicListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/list">-->
+    <!--</com.cogeq.cogeqapp.DynamicListView>-->
 
 
 
