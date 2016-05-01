@@ -64,8 +64,14 @@ public class CogeqActivityAdapter extends ArrayAdapter<CogeqActivity> {
                 Date from, to;
                 from = cogeqActivity.getStart();
                 to = cogeqActivity.getEnd();
-                String dateTextStr = format.format(from) + "-" + format.format(to);
-                dateText.setText( dateTextStr );
+                String dateTextStr;
+                if( from != null && to != null) {
+                    dateTextStr = format.format(from) + "-" + format.format(to);
+                }
+                else {
+                    dateTextStr = "??:??-??-??";
+                }
+                dateText.setText(dateTextStr);
             }
             ImageView iv = (ImageView) v.findViewById(R.id.image);
             Picasso.with(getContext()).load(cogeqActivity.getImageUrl()).into(iv);

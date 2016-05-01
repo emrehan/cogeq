@@ -65,17 +65,16 @@ public class PrimaryFragment extends Fragment {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject activity = array.getJSONObject(i);
                     CogeqActivity cActivity = new CogeqActivity();
-                    cActivity.setActivityId( activity.getString("id"));
+                    cActivity.setActivityId(activity.getString("id"));
                     cActivity.setName(activity.getString("name"));
                     cActivity.setExplanation(activity.getString("description"));
                     cActivity.setImageUrl(activity.getString("picture_url"));
                     JSONObject place = activity.getJSONObject( "place");
-                    cActivity.setPosition( new LatLng( place.getDouble("latitude"), place.getDouble("longitude")));
+                    cActivity.setPosition(new LatLng(place.getDouble("latitude"), place.getDouble("longitude")));
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     cActivity.setStart(format.parse(activity.getString("from")));
                     cActivity.setEnd(format.parse(activity.getString("to")));
                     SavedInformation.getInstance().cogeqActivities.add(cActivity);
-                    Log.d( "ACT", "Activity " + cActivity.getName() + " is processed.");
                 }
             }
         } catch (JSONException e) {
@@ -84,6 +83,11 @@ public class PrimaryFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+//        try {
+//            SavedInformation.getInstance().fillActivitiesWithDebug();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
         Log.d( "ACTIVITIES", "Size of m_activities: " + m_activities.size());
         m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
