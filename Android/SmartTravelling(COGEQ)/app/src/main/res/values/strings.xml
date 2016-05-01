@@ -7,5 +7,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_cogeq_activity_view">CogeqActivityViewActivity</string>
     <string name="backendServer">http://cogeq.herokuapp.com</string>
+    <string name="main_activity">Main Activity</string>
     <string name="about">Cogeq is a 5 people team founded by CS students for senior design project. Our goal is to create a nice application where we suggest possible places to visit in a new city according to the users tastes.</string>
 </resources>
