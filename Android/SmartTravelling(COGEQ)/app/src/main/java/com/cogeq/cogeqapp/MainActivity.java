@@ -143,7 +143,13 @@ public class MainActivity extends AppCompatActivity{
         view.findViewById(R.id.daysTick).setVisibility(View.VISIBLE);
 
         DaysFragment.getInstance().getDays().get(pos).setIsSelected(true);
-        PrimaryFragment.getInstance().getTravelsForTheFirstTime();
+        if( SavedInformation.getInstance().travelObject == null) {
+            PrimaryFragment.getInstance().getTravelsForTheFirstTime();
+        }
+        else {
+            PrimaryFragment.getInstance().populateFragment();
+            PrimaryFragment.getInstance().fillFragment();
+        }
         MyMapFragment.setUpMapIfNeeded();
     }
 

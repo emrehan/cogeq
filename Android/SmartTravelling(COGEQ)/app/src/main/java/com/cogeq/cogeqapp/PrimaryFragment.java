@@ -1,5 +1,6 @@
 package com.cogeq.cogeqapp;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -58,10 +59,9 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         try {
             if( travelsObject.has( "Error") ){
                 Log.e("JSON", "Error is returned.");
-                //SavedInformation.getInstance().fillActivitiesWithDebug();
                 ArrayList<String> list = new ArrayList<>();
                 list.add( "Server Error");
-                ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, false, false, false, true, list);
+                ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity().getApplicationContext(), R.layout.empty_list_row, false, false, false, true, list);
                 setListAdapter( adapter);
                 errorFlag = true;
             }
@@ -90,7 +90,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             Log.e( "JSON", "Eror while parsing travelsObject!");
             ArrayList<String> list = new ArrayList<>();
             list.add( "Json Error");
-            ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, false, false, false, true, list);
+            ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity().getApplicationContext(), R.layout.empty_list_row, false, false, false, true, list);
             setListAdapter(adapter);
             e.printStackTrace();
             errorFlag = true;
@@ -103,14 +103,9 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
 //            e.printStackTrace();
 //        }
         if( !errorFlag) {
-            m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
-            if (m_activities == null) {
-                m_activities = new ArrayList<>();
-            }
             Log.d("ACTIVITIES", "Size of m_activities: " + m_activities.size());
-            m_adapter = new CogeqActivityAdapter(getActivity(), R.layout.cogeq_activity_row, m_activities);
-            setListAdapter(m_adapter);
-            m_adapter.notifyDataSetChanged();
+            fillFragment();
+
         }
     }
     public void getTravelsForTheFirstTime(){
@@ -151,7 +146,14 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                 public void onErrorResponse(VolleyError error) {
                     ArrayList<String> list = new ArrayList<>();
                     list.add("Connection Error");
-                    ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, false, false, false, true, list);
+                    Context context = null;
+                    if( getActivity() == null){
+                        context = getContext();
+                    }
+                    else {
+                        context = getActivity().getApplicationContext();
+                    }
+                    ListAdapter adapter = new ActivitiesAreEmptyListAdapter( context, R.layout.empty_list_row, false, false, false, true, list);
                     setListAdapter( adapter);
                     SavedInformation.getInstance().error = true;
                     Log.e("CONNECTION", "Connection error while getting Activities");
@@ -162,11 +164,9 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             queue.add(jsonObjectRequest);
 
             if( !SavedInformation.getInstance().error) {
-                m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
-                m_adapter = new CogeqActivityAdapter(getActivity(), R.layout.cogeq_activity_row, m_activities);
-                setListAdapter(m_adapter);
+                fillFragment();
             }
-        }
+    }
         else {
             boolean startSelected, endSelected, citySelected;
             startSelected = endSelected = citySelected = true;
@@ -186,7 +186,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
             list.add( "" + startSelected);
             list.add("" + endSelected);
             list.add( "" + citySelected);
-            ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity(), R.layout.empty_list_row, startSelected, endSelected, citySelected, false, list);
+            ListAdapter adapter = new ActivitiesAreEmptyListAdapter(getActivity().getApplicationContext(), R.layout.empty_list_row, startSelected, endSelected, citySelected, false, list);
             setListAdapter(adapter);
             Log.d("ADAPTER", "emptyList adapter is set.");
         }
@@ -201,12 +201,8 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
         String startRfc3339 = "";
         String finishRfc3339 = "";
 
-        m_activities = new ArrayList<>();
-        m_adapter = new CogeqActivityAdapter( getActivity(), R.layout.cogeq_activity_row, m_activities);
-
-
         View view = inflater.inflate(R.layout.primary_layout, container, false);
-        setListAdapter(m_adapter);
+        fillFragment();
         return view;
     }
     public static PrimaryFragment getInstance(){
@@ -214,5 +210,14 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
     }
     public ArrayList<CogeqActivity> getActivities(){
         return m_activities;
+    }
+
+    public void fillFragment() {
+        m_activities = SavedInformation.getInstance().getActivitiesForSelectedDay();
+        if( getActivity() != null) {
+            m_adapter = new CogeqActivityAdapter(getActivity().getApplicationContext(), R.layout.cogeq_activity_row, m_activities);
+            setListAdapter(m_adapter);
+            m_adapter.notifyDataSetChanged();
+        }
     }
 }
