@@ -158,6 +158,7 @@ public class PrimaryFragment extends android.support.v4.app.ListFragment {
                     VolleyLog.d( "CONNECTION", "Error: " + error.getMessage());
                 }
             });
+            Log.d( "REQ", "Request is sent");
             queue.add(jsonObjectRequest);
 
             if( !SavedInformation.getInstance().error) {

@@ -149,21 +149,19 @@ public class MyMapFragment extends Fragment implements OnMapReadyCallback, Locat
             }
             source = destination;
         }
-        if( position != null) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12.0f));
-            Log.d("MAP", "Zoom is zooming");
-        }
         mMap.setMyLocationEnabled(true);
         if( instance != null) {
             instance.onMapReady(mMap);
         }
+        if( position != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12.0f));
+            Log.d("MAP", "Zoom is zooming");
+        }
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        if (mMap != null)
-            setUpMap();
-
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map));

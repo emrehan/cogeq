@@ -51,6 +51,7 @@ public class ActivitiesAreEmptyListAdapter extends ArrayAdapter<String> {
                 }
                 else{
                     textView.setText( "You should select a start date");
+                    iv.setVisibility(View.INVISIBLE);
                 }
                 break;
             case 1:

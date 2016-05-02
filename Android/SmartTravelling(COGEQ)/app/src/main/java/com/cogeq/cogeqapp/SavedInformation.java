@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -76,7 +77,19 @@ public class SavedInformation {
         ArrayList<CogeqActivity> list = new ArrayList<>();
         if( currentDay != null){
             for( CogeqActivity a : cogeqActivities){
-                long dayDifference = getDateDiff( currentDay, a.getStart(), TimeUnit.DAYS);
+                Date activityDate;
+                Calendar cal = Calendar.getInstance();
+                cal.set( Calendar.DAY_OF_MONTH, a.getStart().getDay());
+                cal.set( Calendar.MONTH, a.getStart().getMonth());
+                cal.set( Calendar.YEAR, a.getStart().getYear());
+                cal.set(Calendar.HOUR_OF_DAY,0);
+                cal.set(Calendar.MINUTE,0);
+                cal.set(Calendar.SECOND,0);
+                cal.set(Calendar.MILLISECOND,0);
+
+                activityDate = cal.getTime();
+
+                long dayDifference = getDateDiff( currentDay, activityDate, TimeUnit.DAYS);
                 if( dayDifference == 0){
                     list.add( a);
                 }

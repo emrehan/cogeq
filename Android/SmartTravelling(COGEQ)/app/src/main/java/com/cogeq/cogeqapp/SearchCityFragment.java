@@ -1,5 +1,6 @@
 package com.cogeq.cogeqapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -466,85 +469,20 @@ public class SearchCityFragment extends Fragment {
         final AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.city_list);
         textView.setAdapter(adapter);
 
-        /*adapter = new ArrayAdapter<String>( getContext(), R.layout.adapter_resource );
-        searchList = (ListView)view.findViewById( R.id.search_list);
-        searchView = (SearchView) view.findViewById( R.id.searchView);
-        searchList.setAdapter( adapter);
-        */
         textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 String cityName = textView.getText().toString();
-                //searchView.setQuery( cityName, false);
                 SavedInformation.getInstance().city = cityName;
-                System.out.println(cityName);
+//                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                textView.clearFocus();
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
             }
 
         });
 
-/*
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchList.setVisibility(View.INVISIBLE);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText != null) {
-                    searchList.setVisibility(View.VISIBLE);
-                } else {
-                    searchList.setVisibility(View.INVISIBLE);
-                }
-
-            // Instantiate the RequestQueue.
-            RequestQueue queue = Volley.newRequestQueue( getActivity().getApplicationContext());
-            try {
-                newText = URLEncoder.encode(newText, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                Log.e( "ENCODE", "Error Occured while encoding.");
-                e.printStackTrace();
-            }
-            String url = getString( R.string.backendServer ) + "/cities?query=" + newText;
-            // Request a string response from the provided URL.
-//                Log.d( "CONNECTION","URL:" + url);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                JSONObject jsonObject = response;
-                                JSONArray jsonArray = jsonObject.getJSONArray("cities");
-                                ArrayList<String> list = new ArrayList<String>();
-                                if (jsonArray != null) {
-                                    int len = jsonArray.length();
-                                    for (int i=0;i<len;i++){
-                                        list.add(jsonArray.get(i).toString());
-                                    }
-                                }
-                                adapter = new ArrayAdapter<String>( getContext(), R.layout.adapter_resource , list );
-                                searchList.setAdapter( adapter);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("CONNECTION", "Connection Error!");
-                    error.printStackTrace();
-                }
-            });
-
-            // Add the request to the RequestQueue.
-            queue.add(jsonObjectRequest);
-            //adapter.getFilter().filter(newText);
-            //return false;
-            //}
-        //});*/
         return view;
     }
 }
